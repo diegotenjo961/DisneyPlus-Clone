@@ -8,4 +8,4 @@ function Viewers() {
     )
 }
 
-export default Viewers
+export default Viewers;
