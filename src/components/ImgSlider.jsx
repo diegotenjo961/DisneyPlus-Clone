@@ -8,6 +8,8 @@ import Slider from "react-slick";
 // IMAGES SLIDER
 import sliderBadging from '../atends/images/slider-badging.jpg';
 import sliderBadag from '../atends/images/slider-badag.jpg';
+import sliderScale from '../atends/images/slider-scale.jpg';
+import sliderScales from '../atends/images/slider-scales.jpg';
 
 function ImgSlider() {
 
@@ -26,8 +28,14 @@ function ImgSlider() {
                 <img src={sliderBadging} alt="slider images movies and series" />
             </Wrap>
             <Wrap>
+                <img src={sliderScale} alt="slider images movies and series" />
+            </Wrap> 
+            <Wrap>
                 <img src={sliderBadag} alt="slider images movies and series" />
-            </Wrap>    
+            </Wrap>
+            <Wrap>
+                <img src={sliderScales} alt="slider images movies and series" />
+            </Wrap>     
         </Carousel>
     )
 }
@@ -44,8 +52,8 @@ const Carousel = styled(Slider)`
         }
     }
 
-    li.slick-active button:before {
-        color: #fff;
+    .slick-dots li.slick-active button:before {
+        color: white;
     }
 
     .slick-list {

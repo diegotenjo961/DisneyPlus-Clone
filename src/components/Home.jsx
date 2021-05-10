@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
+import Movies from './Movies';
 
 import backgroundHome from '../atends/images/home-background.png';
 
@@ -11,6 +12,7 @@ function Home() {
         <Container>
             <ImgSlider />
             <Viewers />
+            <Movies />
         </Container>
     )
 }
