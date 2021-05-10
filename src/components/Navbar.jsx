@@ -16,7 +16,6 @@ import myPhoto from '../atends/images/my-photo.jpeg';
 
 
 function Navbar() {
-    console.log('Hola mundo')
     return (
         <Nav>
             <Logo src={LogoDisney}/>
@@ -63,6 +62,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     padding: 0 36px;
+    overflow-x: hidden;
 `
 
 const Logo = styled.img`
