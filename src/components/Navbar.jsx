@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import LogoDisney from '../atends/images/logo.svg';
 
@@ -18,14 +19,15 @@ import myPhoto from '../atends/images/my-photo.jpeg';
 function Navbar() {
     return (
         <Nav>
+        
             <Logo src={LogoDisney}/>
 
             <NavMenu>
 
-                <a href="#">
+                <Link to='/'>
                     <img src={iconHome} alt="icon home"/>
                     <span>HOME</span>
-                </a>
+                </Link>
                 <a href="#">
                     <img src={iconSearch} alt="icon search"/>
                     <span>SEARCH</span>
