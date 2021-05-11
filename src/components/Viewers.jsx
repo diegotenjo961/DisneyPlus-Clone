@@ -8,23 +8,45 @@ import ViewersMarvel from '../atends/images/viewers-marvel.png';
 import ViewersStartwars from '../atends/images/viewers-starwars.png';
 import ViewersNational from '../atends/images/viewers-national.png';
 
+// videos viwers
+import videoDisney from '../atends/videos/1564674844-disney.mp4';
+import videoPixar from '../atends/videos/1564676714-pixar.mp4';
+import videoMarvel from '../atends/videos/1564676115-marvel.mp4';
+import videoStartwars from '../atends/videos/1608229455-star-wars.mp4';
+import videoNational from '../atends/videos/1564676296-national-geographic.mp4';
+
 function Viewers() {
     return (
         <Container>
             <Wrap>
                 <img src={ViewersDisney} alt="viewers diney" />
+                <video autoPlay loop playsInline>
+                    <source src={videoDisney}/>
+                </video>
             </Wrap>
             <Wrap>
                 <img src={ViewersPixar} alt="viewers pixar" />
+                <video autoPlay loop playsInline>
+                    <source src={videoPixar}/>
+                </video>
             </Wrap>
             <Wrap>
                 <img src={ViewersMarvel} alt="viewers marvel" />
+                <video autoPlay loop playsInline>
+                    <source src={videoMarvel}/>
+                </video>
             </Wrap>
             <Wrap>
                 <img src={ViewersStartwars} alt="viewers star wars" />
+                <video autoPlay loop playsInline>
+                    <source src={videoStartwars}/>
+                </video>
             </Wrap>
             <Wrap>
                 <img src={ViewersNational} alt="viewers national geograpic" />
+                <video autoPlay loop playsInline>
+                    <source src={videoNational}/>
+                </video>
             </Wrap>
         </Container>
     )
@@ -48,6 +70,7 @@ const Wrap = styled.div`
     box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
     rgb(0 0 0 / 73%) 0 16px  10px -10px;
     transition: all 250ms cubic-bezier(0.25, 0.46, 0.46, 0.94);
+    position: relative;
 
     img {
         width: 100%;
@@ -55,11 +78,29 @@ const Wrap = styled.div`
         object-fit: cover;
     }
 
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        opacity: 0;
+    }
+
     &:hover {
         box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px,
         rgb(0 0 0 / 72%) 0 30px  22px -10px;
         transform: scale(1.05);
-        border-color: rgba(249, 249, 249, 0.8)
+        border-color: rgba(249, 249, 249, 0.8);
+
+        video {
+            opacity: 0.9;
+        }
 
     }
 `
