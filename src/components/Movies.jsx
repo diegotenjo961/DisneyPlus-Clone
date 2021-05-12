@@ -1,16 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
 import dataMovies from '../data/movies';
 import dataSeries from '../data/series';
 
 function Movies() {
+    const movies = useSelector(selectMovies);
+
     return (
         <Container>
+            <h4>Recommended for you</h4>
+            <Content>
+                {movies && 
+                    movies.map(movie => (
+                        <Wrap key={movie.id} to='/detail'>
+                            <img src={movie.cardImg} alt={'Image ' + movie.title} />
+                        </Wrap>
+                    ))}
+            </Content>
             <h4>Movies</h4>
             <Content>
                 {dataMovies.map(movie => (
-                    <Wrap key={movie.id}>
+                    <Wrap key={movie.id} to='/detail'>
                         <img src={movie.image} alt={'Image ' + movie.name} />
                     </Wrap>
                 ))}
@@ -18,7 +33,7 @@ function Movies() {
             <h4>Series</h4>
             <Content>
                     {dataSeries.map(serie => (
-                        <Wrap key={serie.id}>
+                        <Wrap key={serie.id} to='/detail'>
                             <img src={serie.image} alt={'Image '+ serie.name} />
                         </Wrap>
                     ))}
@@ -38,7 +53,7 @@ const Content = styled.div`
     grid-gap: 25px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 `
-const Wrap = styled.div`
+const Wrap = styled(Link)`
     border-radius: 10px;
     cursor: pointer;
     overflow: hidden;
