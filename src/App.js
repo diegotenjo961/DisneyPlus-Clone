@@ -1,24 +1,34 @@
-import React from 'react'
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import React from 'react';
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import Detail from './components/Detail'
+import Login from './components/Login'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Detail from './components/Detail';
-import Login from './components/Login';
 
 function App() {
-    return (
-        <div>
-            <BrowserRouter>
-                <Navbar />
-                <Switch>
-                    <Route exact path='/login' component={Login}/>
-                    <Route exact path='/detail' component={Detail}/>
-                    <Route exact path='/' component={Home}/>
-                </Switch>
-            </BrowserRouter>
-        </div>
-    )
+  return (
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/detail">
+            <Detail />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
