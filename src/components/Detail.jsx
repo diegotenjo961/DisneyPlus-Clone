@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 // Icons
@@ -6,17 +6,49 @@ import play from '../atends/images/play-icon-black.png';
 import playWhite from '../atends/images/play-icon-white.png';
 import group from '../atends/images/group-icon.png';
 
+import { useParams } from 'react-router-dom';
+import db from '../firebase';
+
+import moviesData from '../data/movies';
+
 function Detail() {
+    const { id } = useParams();
+    const [ movie, setMovie] = useState('');
+
+    let copy = id;
+    copy = parseInt(copy);
+    
+    const handleClick = e => {
+        const openYoutubeTrailer = moviesData[copy - 1].trailer;
+        if(openYoutubeTrailer){
+            window.open(`https://www.youtube.com/watch?v=${openYoutubeTrailer}`);
+        }
+    }
+    useEffect(() => {
+        db.collection("movies")
+            .doc(id)
+            .get()
+            .then(doc => {
+                if (doc.exists) {
+                    // save the movie data
+                    setMovie(doc.data());
+            }
+            else {
+                // redirect from page home
+            }
+        })
+    }, [])
+
     return (
         <Container>
             <Background>
-                <img src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg' 
-                alt="Image movie background" />
+                <img src={movie.backgroundImg}
+                alt={movie && 'Image background'} />
             </Background>
             
             <ImageTitle>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78" 
-                alt="Logo image" />
+                <img src={movie.titleImg}
+                alt={movie.titleImg && movie.titleImg} />
             </ImageTitle>
 
             <Controls>
@@ -25,7 +57,7 @@ function Detail() {
                     <img src={play} alt="icon play"/>
                     <span>PLAY</span>
                 </PlayButton>
-                <TrailerButon>
+                <TrailerButon onClick={handleClick}>
                     <img src={playWhite} alt="icon play white"/>
                     <span>TRAILER</span>
                 </TrailerButon>
@@ -38,10 +70,10 @@ function Detail() {
             </Controls>
 
             <SubTitle>
-                2018 - 7m - Family, Fantasy, kids, Animation
+                {movie.subTitle}
             </SubTitle>
             <Description>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam doloremque nam voluptates consequatur animi eaque harum hic nobis molestias provident, eligendi nesciunt? Ipsa deleniti ex facilis dolorum itaque eos ut!
+                {movie.description}
             </Description>
         </Container>
     )

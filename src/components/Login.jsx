@@ -1,16 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import { useHistory } from 'react-router-dom';
+import { auth, provider } from '../firebase';
+import { setUserLogin } from '../features/user/userSlice';
+import { useDispatch } from 'react-redux';
+
 
 import logoOne from '../atends/images/cta-logo-one.svg';
 import logoTwo from '../atends/images/cta-logo-two.png';
 import BackgroundImage from '../atends/images/login-background.jpg';
 
 function Login() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const [ error, setError ] = useState(null);
+
+    if(localStorage.getItem('token')){
+        history.push('/');
+    }
+
+    const signIn = () => {
+        auth.signInWithPopup(provider)
+        .then(results => {
+            localStorage.setItem('photo',results.user.photoURL);
+            localStorage.setItem('token',results.credential.accessToken);
+            dispatch(setUserLogin({
+                name: results.user.displayName,
+                email: results.user.email,
+                photo: results.user.photoURL,
+            }))
+            history.push('/');
+        })
+        .catch(error => {
+            setError(error);
+        })
+    }
+
+    if(error){
+        alert('Upps something is wrong. Please refresh the page.')
+    }
+
     return (
         <Container>
             <CTA>
                 <CTALogoOne src={logoOne}/>
-                <SignUp>GET ALL THERE</SignUp>
+                <SignUp onClick={signIn}>GET ALL THERE</SignUp>
                 <Description>
                     Get Premiere Access to Raya and the Last Dragon for and additional fee with a Disney+ suscription.
                     As of 03/26/21, the price of Disney+ and the Disney Bundle will increase by $1.

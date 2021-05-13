@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { selectMovies } from '../features/movie/movieSlice';
 import { useSelector } from 'react-redux';
@@ -17,24 +17,30 @@ function Movies() {
             <Content>
                 {movies && 
                     movies.map(movie => (
-                        <Wrap key={movie.id} to='/detail'>
-                            <img src={movie.cardImg} alt={'Image ' + movie.title} />
+                        <Wrap key={movie.id}>
+                            <Link to={`/detail/${movie.id}`}>
+                                <img src={movie.cardImg} alt={'Image ' + movie.title} />                            
+                            </Link>
                         </Wrap>
                     ))}
             </Content>
             <h4>Movies</h4>
             <Content>
                 {dataMovies.map(movie => (
-                    <Wrap key={movie.id} to='/detail'>
-                        <img src={movie.image} alt={'Image ' + movie.name} />
+                    <Wrap key={movie.id}>
+                        <Link to={`/detail/${movie.id}`}>
+                            <img src={movie.cardImg} alt={'Image ' + movie.title} />                        
+                        </Link>
                     </Wrap>
                 ))}
             </Content>
             <h4>Series</h4>
             <Content>
                     {dataSeries.map(serie => (
-                        <Wrap key={serie.id} to='/detail'>
-                            <img src={serie.image} alt={'Image '+ serie.name} />
+                        <Wrap key={serie.id}>
+                            <Link to={`/detail/${serie.id}`}>
+                                <img src={serie.cardImg} alt={'Image '+ serie.title} />                            
+                            </Link>
                         </Wrap>
                     ))}
             </Content>
@@ -53,7 +59,7 @@ const Content = styled.div`
     grid-gap: 25px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 `
-const Wrap = styled(Link)`
+const Wrap = styled.div`
     border-radius: 10px;
     cursor: pointer;
     overflow: hidden;

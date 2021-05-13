@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
@@ -12,8 +13,12 @@ import { setMovies } from '../features/movie/movieSlice';
 import backgroundHome from '../atends/images/home-background.png';
 
 function Home() {
+    const history = useHistory();
     const dispatch = useDispatch();
 
+    if (!localStorage.getItem('token')) {
+        history.push('/login');
+    }
     useEffect(() => {
         db.collection("movies").onSnapshot(snapshot => {
             let tempMovies = snapshot.docs.map(doc => {

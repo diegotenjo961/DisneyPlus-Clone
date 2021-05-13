@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { auth, provider } from '../firebase';
+import { useHistory } from 'react-router-dom';
 
 import LogoDisney from '../atends/images/logo.svg';
 
@@ -12,46 +14,92 @@ import iconOriginal from '../atends/images/original-icon.svg';
 import iconMovies from '../atends/images/movie-icon.svg';
 import iconSeries from '../atends/images/series-icon.svg';
 
-import myPhoto from '../atends/images/my-photo.jpeg';
-
-
+import { selectUserName, selectUserPhoto, setUserLogin, setSignOut} from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Navbar() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+    const [ error, setError] = useState(null);
+
+    const signIn = () => {
+        auth.signInWithPopup(provider)
+        .then(results => {
+            localStorage.setItem('token',results.credential.accessToken);
+            localStorage.setItem('photo',results.user.photoURL);
+            dispatch(setUserLogin({
+                name: results.user.displayName,
+                email: results.user.email,
+                photo: results.user.photoURL,
+            }))
+            history.push('/');
+        })
+        .catch(error => {
+            setError(error);
+        })
+    }
+
+    const signOut = () => {
+        localStorage.clear();
+        auth.signOut()
+        .then(() => {
+            dispatch(setSignOut())
+            history.push('/login')
+        })
+    }
+
+    if(error){
+        alert('Upps something is wrong. Please refresh the page.')
+    }
     return (
         <Nav>
         
             <Logo src={LogoDisney}/>
 
-            <NavMenu>
+            {!localStorage.getItem('token') ?
+                <LoginContainer>
+                    <Login onClick={signIn}>Login</Login>
+                </LoginContainer> 
+                :
+                <React.Fragment>
+                        <NavMenu>
 
-                <Link to='/'>
-                    <img src={iconHome} alt="icon home"/>
-                    <span>HOME</span>
-                </Link>
-                <a href="#">
-                    <img src={iconSearch} alt="icon search"/>
-                    <span>SEARCH</span>
-                </a>
-                <a href="#">
-                    <img src={iconWatchlist} alt="icon watchlist"/>
-                    <span>WATCHLIST</span>
-                </a>
-                <a href="#">
-                    <img src={iconOriginal} alt="icon original"/>
-                    <span>ORIGINALS</span>
-                </a>
-                <a href="#">
-                    <img src={iconMovies} alt="icon movies"/>
-                    <span>MOVIES</span>
-                </a>
-                <a href="#">
-                    <img src={iconSeries} alt="icon series"/>
-                    <span>SERIES</span>
-                </a>
+                            <Link to='/'>
+                                <img src={iconHome} alt="icon home"/>
+                                <span>HOME</span>
+                            </Link>
+                            <Link to="/">
+                                <img src={iconSearch} alt="icon search"/>
+                                <span>SEARCH</span>
+                            </Link>
+                            <Link to="/">
+                                <img src={iconWatchlist} alt="icon watchlist"/>
+                                <span>WATCHLIST</span>
+                            </Link>
+                            <Link to="/">
+                                <img src={iconOriginal} alt="icon original"/>
+                                <span>ORIGINALS</span>
+                            </Link>
+                            <Link to="/">
+                                <img src={iconMovies} alt="icon movies"/>
+                                <span>MOVIES</span>
+                            </Link> 
+                            <Link to="/">
+                                <img src={iconSeries} alt="icon series"/>
+                                <span>SERIES</span>
+                            </Link>
 
-            </NavMenu>
-
-            <UserImg src={myPhoto}/>
+                        </NavMenu>
+                    <ContainerUserImg>
+                        <UserImg src={localStorage.getItem('photo')}
+                        alt='Image profile'/>
+                        <SignOut onClick={signOut}>Sign Out</SignOut>
+                    </ContainerUserImg>
+                </React.Fragment>
+            }
         </Nav>
     )
 }
@@ -69,6 +117,30 @@ const Nav = styled.nav`
 
 const Logo = styled.img`
     width: 80px;
+`
+
+const Login = styled.button`
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.2s ease 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: #000;
+        border-color: transparent;
+        font-weight: 400;
+    }
+`
+const LoginContainer = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 `
 
 const NavMenu = styled.div`
@@ -115,9 +187,15 @@ const NavMenu = styled.div`
         }
     }
 `
+const ContainerUserImg = styled.div`
+    display: flex;
+    align-items: center;
+`
 const UserImg = styled.img`
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    cursor: pointer;
+`
+const SignOut = styled(Login)`
+    margin-left: 10px;
 `
