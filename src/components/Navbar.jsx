@@ -57,7 +57,7 @@ function Navbar() {
     return (
         <Nav>
         
-            <Logo src={LogoDisney}/>
+            <Link to='/'><Logo src={LogoDisney}/></Link>
 
             {!localStorage.getItem('token') ?
                 <LoginContainer>
@@ -113,6 +113,16 @@ const Nav = styled.nav`
     align-items: center;
     padding: 0 36px;
     overflow-x: hidden;
+    @media (max-width: 870px){
+        section {
+            display: none;
+        }
+        figure {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+    } 
 `
 
 const Logo = styled.img`
@@ -143,7 +153,7 @@ const LoginContainer = styled.div`
     justify-content: flex-end;
 `
 
-const NavMenu = styled.div`
+const NavMenu = styled.section`
     display: flex;
     flex: 1;
     margin-left: 25px;
@@ -187,13 +197,13 @@ const NavMenu = styled.div`
         }
     }
 `
-const ContainerUserImg = styled.div`
+const ContainerUserImg = styled.figure`
     display: flex;
     align-items: center;
 `
 const UserImg = styled.img`
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 `
 const SignOut = styled(Login)`

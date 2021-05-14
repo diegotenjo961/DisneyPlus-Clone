@@ -72,6 +72,9 @@ const Carousel = styled(Slider)`
         font-size: 50px;
         cursor: context-menu;
     }
+    @media (max-width: 700px){
+        display: none;
+    }
 `
 
 const Wrap = styled.div`

@@ -41,13 +41,19 @@ function Movies() {
 export default Movies;
 
 const Container = styled.div`
-
 `
 const Content = styled.div`
     margin: 20px 0;
     display: grid;
     grid-gap: 25px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    @media(max-width: 770px){
+        display: block;
+        div {
+            margin-bottom: 26px;
+        }
+    }
 `
 const Wrap = styled.div`
     border-radius: 10px;
