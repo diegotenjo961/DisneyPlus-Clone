@@ -2,31 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { selectMovies } from '../features/movie/movieSlice';
-import { useSelector } from 'react-redux';
+// import { selectMovies } from '../features/movie/movieSlice';
+// import { useSelector } from 'react-redux';
 
 import dataMovies from '../data/movies';
-import dataSeries from '../data/series';
 
 function Movies() {
-    const movies = useSelector(selectMovies);
+    // const movies = useSelector(selectMovies);
 
     return (
         <Container>
-            <h4>Recommended for you</h4>
-            <Content>
-                {movies && 
-                    movies.map(movie => (
-                        <Wrap key={movie.id}>
-                            <Link to={`/detail/${movie.id}`}>
-                                <img src={movie.cardImg} alt={'Image ' + movie.title} />                            
-                            </Link>
-                        </Wrap>
-                    ))}
-            </Content>
             <h4>Movies</h4>
             <Content>
                 {dataMovies.map(movie => (
+                    (movie.type === 'movie') &&
                     <Wrap key={movie.id}>
                         <Link to={`/detail/${movie.id}`}>
                             <img src={movie.cardImg} alt={'Image ' + movie.title} />                        
@@ -36,13 +25,14 @@ function Movies() {
             </Content>
             <h4>Series</h4>
             <Content>
-                    {dataSeries.map(serie => (
-                        <Wrap key={serie.id}>
-                            <Link to={`/detail/${serie.id}`}>
-                                <img src={serie.cardImg} alt={'Image '+ serie.title} />                            
-                            </Link>
-                        </Wrap>
-                    ))}
+                {dataMovies.map(movie => (
+                    (movie.type === 'serie') &&
+                    <Wrap key={movie.id}>
+                        <Link to={`/detail/${movie.id}`}>
+                            <img src={movie.cardImg} alt={'Image ' + movie.title} />                        
+                        </Link>
+                    </Wrap>
+                ))}
             </Content>
         </Container>
     )

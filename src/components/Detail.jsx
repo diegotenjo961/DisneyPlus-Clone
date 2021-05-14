@@ -7,37 +7,23 @@ import playWhite from '../atends/images/play-icon-white.png';
 import group from '../atends/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
-import db from '../firebase';
 
 import moviesData from '../data/movies';
 
 function Detail() {
     const { id } = useParams();
-    const [ movie, setMovie] = useState('');
-
+    
     let copy = id;
     copy = parseInt(copy);
-    
+
     const handleClick = e => {
         const openYoutubeTrailer = moviesData[copy - 1].trailer;
         if(openYoutubeTrailer){
             window.open(`https://www.youtube.com/watch?v=${openYoutubeTrailer}`);
         }
     }
-    useEffect(() => {
-        db.collection("movies")
-            .doc(id)
-            .get()
-            .then(doc => {
-                if (doc.exists) {
-                    // save the movie data
-                    setMovie(doc.data());
-            }
-            else {
-                // redirect from page home
-            }
-        })
-    }, [])
+    
+    const movie = moviesData[copy - 1];
 
     return (
         <Container>
@@ -47,7 +33,7 @@ function Detail() {
             </Background>
             
             <ImageTitle>
-                <img src={movie.titleImg}
+                <img src={movie.cardImg}
                 alt={movie.titleImg && movie.titleImg} />
             </ImageTitle>
 
@@ -70,7 +56,9 @@ function Detail() {
             </Controls>
 
             <SubTitle>
-                {movie.subTitle}
+                <span>{movie.subTitle}</span>
+                <span>{movie.genre}</span>
+                <span><strong>{movie.type}</strong></span>
             </SubTitle>
             <Description>
                 {movie.description}
@@ -108,6 +96,8 @@ const ImageTitle = styled.div`
     min-height: 170px;
     width: 35vw;
     min-width: 200px;
+    box-shadow: rgb(20, 20, 20);
+    border-radius: 4px;
 
     img {
         width: 100%;
@@ -174,6 +164,10 @@ const SubTitle = styled.div`
     font-size: 15px;
     margin-top: 26px;
     min-height: 20px;
+    span {
+        margin: 0 20px;
+        text-transform: uppercase;
+    }
 `
 
 const Description = styled.div`
