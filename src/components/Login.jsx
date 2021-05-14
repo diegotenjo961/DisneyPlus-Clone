@@ -40,6 +40,7 @@ function Login() {
 
     if(error){
         alert('Upps something is wrong. Please refresh the page.')
+        console.log(error);
     }
 
     return (

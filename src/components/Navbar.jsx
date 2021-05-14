@@ -52,7 +52,8 @@ function Navbar() {
     }
 
     if(error){
-        alert('Upps something is wrong. Please refresh the page.')
+        alert('Upps something is wrong. Please refresh the page.');
+        console.log(error)
     }
     return (
         <Nav>
