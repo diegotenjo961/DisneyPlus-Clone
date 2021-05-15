@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { auth, provider } from '../firebase';
 import { useHistory } from 'react-router-dom';
+
+import GoogleLogin from 'react-google-login';
 
 import LogoDisney from '../atends/images/logo.svg';
 
@@ -25,30 +26,24 @@ function Navbar() {
     const userPhoto = useSelector(selectUserPhoto);
     const [ error, setError] = useState(null);
 
-    const signIn = () => {
-        auth.signInWithPopup(provider)
-        .then(results => {
-            localStorage.setItem('token',results.credential.accessToken);
-            localStorage.setItem('photo',results.user.photoURL);
-            dispatch(setUserLogin({
-                name: results.user.displayName,
-                email: results.user.email,
-                photo: results.user.photoURL,
-            }))
-            history.push('/');
-        })
-        .catch(error => {
-            setError(error);
-        })
+    const signIn = (response) => {
+        localStorage.setItem('token',response.accessToken);
+        localStorage.setItem('photo',response.profileObj.imageUrl);
+        dispatch(setUserLogin({
+            name: response.profileObj.name,
+            email: response.profileObj.email,
+            photo: response.profileObj.imageUrl,
+        }))
+        history.push('/');
     }
 
     const signOut = () => {
-        localStorage.clear();
-        auth.signOut()
-        .then(() => {
+        let confirmQ = window.confirm('Are you sure logout your session ?');
+        if(confirmQ){
+            localStorage.clear();
             dispatch(setSignOut())
             history.push('/login')
-        })
+        }
     }
 
     if(error){
@@ -60,10 +55,19 @@ function Navbar() {
         
             <Link to='/'><Logo src={LogoDisney}/></Link>
 
-            {!localStorage.getItem('token') ?
+            {!localStorage.getItem('token') && !userName ?
                 <LoginContainer>
-                    <Login onClick={signIn}>Login</Login>
-                </LoginContainer> 
+                    <GoogleLogin
+                        clientId="369244447701-8ouhrgcia28c0dpqg775u9t8ce4vpsv9.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <Login onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Login>
+                        )}
+                        buttonText="Login"
+                        onSuccess={signIn}
+                        onFailure={signIn}
+                        cookiePolicy={'single_host_origin'}
+                    /> 
+                </LoginContainer>
                 :
                 <React.Fragment>
                         <NavMenu>

@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Movies from './Movies';
-import db from '../firebase';
 
 import { useDispatch } from "react-redux";
-import { setMovies } from '../features/movie/movieSlice';
+// import { setMovies } from '../features/movie/movieSlice';
 
 import backgroundHome from '../atends/images/home-background.png';
 
@@ -19,14 +18,14 @@ function Home() {
     if (!localStorage.getItem('token')) {
         history.push('/login');
     }
-    useEffect(() => {
-        db.collection("movies").onSnapshot(snapshot => {
-            let tempMovies = snapshot.docs.map(doc => {
-                return { id: doc.id, ...doc.data() }
-            })
-            dispatch(setMovies(tempMovies));
-        })
-    }, [])
+    // useEffect(() => {
+    //     db.collection("movies").onSnapshot(snapshot => {
+    //         let tempMovies = snapshot.docs.map(doc => {
+    //             return { id: doc.id, ...doc.data() }
+    //         })
+    //         dispatch(setMovies(tempMovies));
+    //     })
+    // }, [])
 
     return (
         <Container>
