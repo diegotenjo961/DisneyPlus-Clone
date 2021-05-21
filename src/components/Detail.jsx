@@ -7,11 +7,16 @@ import playWhite from '../atends/images/play-icon-white.png';
 import group from '../atends/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import moviesData from '../data/movies';
 
 function Detail() {
     const { id } = useParams();
+    
+     if (!localStorage.getItem('token')) {
+        history.push('/login');
+    }
     
     let copy = id;
     copy = parseInt(copy);
