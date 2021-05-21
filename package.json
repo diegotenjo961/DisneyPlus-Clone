@@ -1,6 +1,10 @@
 {
   "name": "disney-plus-clone",
   "version": "0.1.0",
+  "main": "src/index.js",
+  "description": "disney plus clone",
+  "author": "Diego Tenjo <tenjodiego961@gmail.com>",
+  "license": "ISC",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
