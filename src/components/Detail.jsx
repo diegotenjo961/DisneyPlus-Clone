@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import API from '../API';
 
 // Icons
 import play from '../atends/images/play-icon-black.png';
@@ -8,61 +10,86 @@ import group from '../atends/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
 
-import moviesData from '../data/movies';
-
 function Detail() {
     const { id } = useParams();
-    
-    let copy = id;
-    copy = parseInt(copy);
+    const [movie, setMovie] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const handleClick = e => {
-        const openYoutubeTrailer = moviesData[copy - 1].trailer;
-        if(openYoutubeTrailer){
-            window.open(`https://www.youtube.com/watch?v=${openYoutubeTrailer}`);
-        }
+    const getData = async (path) => {
+        setIsLoading(true);
+        await axios.get(API(path))
+        .then(response => {
+            setMovie(response.data);
+            setIsLoading(false);
+        })
+        .catch(error => {
+            new Error(error);
+            setIsLoading(false);
+            setError(error);
+        })
     }
-    
-    const movie = moviesData[copy - 1];
 
+    useEffect(() => {
+        getData(`movie/${id}`)
+    }, [id])
+
+    const imageMovie = (image) => {
+        return `https://image.tmdb.org/t/p/w500${image}`;
+    }
+    console.log(movie)
+
+
+    if(isLoading){
+        return <p>Loading...</p>
+    }
+    if(error){
+        return <p>{error.message}</p>
+    }
     return (
         <Container>
-            <Background>
-                <img src={movie.backgroundImg}
-                alt={movie && 'Image background'} />
-            </Background>
-            
-            <ImageTitle>
-                <img src={movie.cardImg}
-                alt={movie.titleImg && movie.titleImg} />
-            </ImageTitle>
+            <section>
+                <Image>
+                    <img src={imageMovie(movie.backdrop_path)}
+                    alt={movie.title} />
+                </Image>
 
-            <Controls>
+                <Controls>
+                    <PlayButton>
+                        <img src={play} alt="icon play"/>
+                        <span>PLAY</span>
+                    </PlayButton>
+                    <TrailerButton >
+                        <img src={playWhite} alt="icon play white"/>
+                        <span>TRAILER</span>
+                    </TrailerButton>
+                    <AddButton>
+                        <span>+</span>
+                    </AddButton>
+                    <GroupWatchButton>
+                        <img src={group} alt='icon group'/>
+                    </GroupWatchButton>
+                </Controls>
+            </section>
+            <section>
+                <Title>
+                    <h3>{movie.title}</h3>
+                </Title>
+                <SubTitle>
+                    <span>{movie.release_date}</span>
+                    <div>
+                        {movie.genres.map(genre => {
+                            return(
+                                <span key={genre.id}>{genre.name}</span>
+                            )
+                })}
+                    </div>
+                </SubTitle>
 
-                <PlayButton>
-                    <img src={play} alt="icon play"/>
-                    <span>PLAY</span>
-                </PlayButton>
-                <TrailerButon onClick={handleClick}>
-                    <img src={playWhite} alt="icon play white"/>
-                    <span>TRAILER</span>
-                </TrailerButon>
-                <AddButton>
-                    <span>+</span>
-                </AddButton>
-                <GroupWathButton>
-                    <img src={group} alt='icon group'/>
-                </GroupWathButton>
-            </Controls>
-
-            <SubTitle>
-                <span>{movie.subTitle}</span>
-                <span>{movie.genre}</span>
-                <span><strong>{movie.type}</strong></span>
-            </SubTitle>
-            <Description>
-                {movie.description}
-            </Description>
+                <Description>
+                    {movie.overview}
+                </Description>
+            </section>
         </Container>
     )
 }
@@ -70,45 +97,27 @@ function Detail() {
 export default Detail;
 
 const Container = styled.div`
-    min-height: calc(100vh - 70px);
-    padding: 0 calc(3.5vw + 5px);
-    position: relative;
-`
-const Background = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    opacity: 0.8;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    margin: 0 70px;
+    height: 100%;
+    section:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 `
-const ImageTitle = styled.div`
-    margin: 50px 0;
-    margin-top: 60px;
-    height: 30vh;
-    min-height: 170px;
-    width: 35vw;
-    min-width: 200px;
-    box-shadow: rgb(20, 20, 20);
-    border-radius: 4px;
-
+const Image = styled.figure`
+    margin-top: 10px;
+    box-shadow: 0 0 12px rgb(0, 0, 100);
     img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+        border-radius: 4px;
     }
 `
+const Title = styled.div``
 
 const Controls = styled.div`
     display: flex;
     align-items: center;
+    padding: 20px;
 `
 const PlayButton = styled.button`
     border-radius: 4px;
@@ -128,7 +137,7 @@ const PlayButton = styled.button`
     }
 `
 
-const TrailerButon = styled(PlayButton)`
+const TrailerButton = styled(PlayButton)`
     background: rgba(0, 0, 0, 0.3);
     color: rgb(249, 249, 249);
     border: 1px solid rgb(249, 249, 249);
@@ -155,11 +164,12 @@ const AddButton = styled.button`
     }
 `
 
-const GroupWathButton = styled(AddButton)`
+const GroupWatchButton = styled(AddButton)`
     background: rgb(0, 0, 0);
 `
 
 const SubTitle = styled.div`
+    display: flex;
     color: rgb(249, 249, 249);
     font-size: 15px;
     margin-top: 26px;

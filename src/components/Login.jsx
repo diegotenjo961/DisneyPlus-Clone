@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { useHistory } from 'react-router-dom';
@@ -15,8 +15,6 @@ function Login() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [ error, setError ] = useState(null);
-
     if(localStorage.getItem('token')){
         history.push('/');
     }
@@ -30,11 +28,6 @@ function Login() {
             photo: response.profileObj.imageUrl,
         }))
         history.push('/');
-    }
-
-    if(error){
-        alert('Upps something is wrong. Please refresh the page.')
-        console.log(error);
     }
 
     return (

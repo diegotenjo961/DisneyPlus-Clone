@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -15,7 +15,7 @@ import iconOriginal from '../atends/images/original-icon.svg';
 import iconMovies from '../atends/images/movie-icon.svg';
 import iconSeries from '../atends/images/series-icon.svg';
 
-import { selectUserName, selectUserPhoto, setUserLogin, setSignOut} from '../features/user/userSlice';
+import { selectUserName, setUserLogin, setSignOut} from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Navbar() {
@@ -23,8 +23,6 @@ function Navbar() {
     const history = useHistory();
 
     const userName = useSelector(selectUserName);
-    const userPhoto = useSelector(selectUserPhoto);
-    const [ error, setError] = useState(null);
 
     const signIn = (response) => {
         localStorage.setItem('token',response.accessToken);
@@ -46,13 +44,8 @@ function Navbar() {
         }
     }
 
-    if(error){
-        alert('Upps something is wrong. Please refresh the page.');
-        console.log(error)
-    }
     return (
         <Nav>
-        
             <Link to='/'><Logo src={LogoDisney}/></Link>
 
             {!localStorage.getItem('token') && !userName ?

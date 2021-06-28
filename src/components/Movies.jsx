@@ -2,34 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import { selectMovies } from '../features/movie/movieSlice';
-// import { useSelector } from 'react-redux';
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
-import dataMovies from '../data/movies';
-
-function Movies() {
-    // const movies = useSelector(selectMovies);
+const Movies = () => {
+    const movies = useSelector(selectMovies);
 
     return (
         <Container>
             <h4>Movies</h4>
             <Content>
-                {dataMovies.map(movie => (
-                    (movie.type === 'movie') &&
+                {
+                    movies.results.map(movie => (
                     <Wrap key={movie.id}>
                         <Link to={`/detail/${movie.id}`}>
-                            <img src={movie.cardImg} alt={'Image ' + movie.title} />                        
-                        </Link>
-                    </Wrap>
-                ))}
-            </Content>
-            <h4>Series</h4>
-            <Content>
-                {dataMovies.map(movie => (
-                    (movie.type === 'serie') &&
-                    <Wrap key={movie.id}>
-                        <Link to={`/detail/${movie.id}`}>
-                            <img src={movie.cardImg} alt={'Image ' + movie.title} />                        
+                            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            alt={movie.title} />
                         </Link>
                     </Wrap>
                 ))}
