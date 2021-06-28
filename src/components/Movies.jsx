@@ -2,18 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { selectMovies } from '../features/movie/movieSlice';
-import { useSelector } from 'react-redux';
-
-const Movies = () => {
-    const movies = useSelector(selectMovies);
-
+const Movies = (props) => {
     return (
         <Container>
-            <h4>Movies</h4>
+            <h3>{props.title}</h3>
             <Content>
                 {
-                    movies.results.map(movie => (
+                    props.movies.map(movie => (
                     <Wrap key={movie.id}>
                         <Link to={`/detail/${movie.id}`}>
                             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -34,7 +29,7 @@ const Content = styled.div`
     margin: 20px 0;
     display: grid;
     grid-gap: 25px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
 
     @media(max-width: 770px){
         display: block;

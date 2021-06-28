@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
+import Loading from './Loading';
 import API from '../API';
 
 import ImgSlider from './ImgSlider';
@@ -11,10 +12,13 @@ import Movies from './Movies';
 
 import { useDispatch } from "react-redux";
 import { setMovies } from '../features/movie/movieSlice';
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
 import backgroundHome from '../atends/images/home-background.png';
 
 function Home() {
+    const movies = useSelector(selectMovies);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -47,12 +51,12 @@ function Home() {
     }
     return (
         <Container>
-            {isLoading ? <p>Loading ...</p>
+            {isLoading ? <Loading />
                 :(
                 <>
                     <ImgSlider />
                     <Viewers />
-                    <Movies />
+                    <Movies movies={movies.results} title={'PUPOPAR MOVIES'}/>
                 </>
                 )
             }

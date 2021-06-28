@@ -1,6 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+
+import Loading from './Loading';
+import Video from './Video';
 import API from '../API';
 
 // Icons
@@ -13,15 +16,31 @@ import { useHistory } from 'react-router-dom';
 
 function Detail() {
     const { id } = useParams();
-    const [movie, setMovie] = useState({});
+    const history = useHistory();
+    const [movie, setMovie] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [booleanVideo, setBooleanVideo] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    if (!localStorage.getItem('token')) {
+        history.push('/login');
+    }
 
     const getData = async (path) => {
         setIsLoading(true);
         await axios.get(API(path))
         .then(response => {
-            setMovie(response.data);
+            switch (path) {
+                case `movie/${id}`:
+                    setMovie(response.data);
+                    break;
+                case `movie/${id}/videos`:
+                    setVideos(response.data);
+                    break;
+                default:
+                    console.log('Please put the correct path');
+            }
             setIsLoading(false);
         })
         .catch(error => {
@@ -32,17 +51,28 @@ function Detail() {
     }
 
     useEffect(() => {
-        getData(`movie/${id}`)
-    }, [id])
+        getData(`movie/${id}`);
+        getData(`movie/${id}/videos`);
+        return () => {
+            setIsLoading(true);
+        }
+        // eslint-disable-next-lines
+    }, [id]);
+
 
     const imageMovie = (image) => {
         return `https://image.tmdb.org/t/p/w500${image}`;
     }
-    console.log(movie)
 
+    const handleClick = async e => {
+        if(e.target.className === 'button-closed'){
+            return setBooleanVideo(false);
+        }
+        return setBooleanVideo(true);
+    }
 
     if(isLoading){
-        return <p>Loading...</p>
+        return <Loading />
     }
     if(error){
         return <p>{error.message}</p>
@@ -56,11 +86,11 @@ function Detail() {
                 </Image>
 
                 <Controls>
-                    <PlayButton>
+                    <PlayButton onClick={handleClick}>
                         <img src={play} alt="icon play"/>
                         <span>PLAY</span>
                     </PlayButton>
-                    <TrailerButton >
+                    <TrailerButton onClick={handleClick}>
                         <img src={playWhite} alt="icon play white"/>
                         <span>TRAILER</span>
                     </TrailerButton>
@@ -71,6 +101,22 @@ function Detail() {
                         <img src={group} alt='icon group'/>
                     </GroupWatchButton>
                 </Controls>
+                {booleanVideo && (
+                    <>
+                    <ButtonClosed>
+                        <div className="button-closed" onClick={handleClick}>
+                            Close
+                        </div>
+                    </ButtonClosed>
+                        {videos.results.map(video => {
+                            return(
+                                <div key={video.key}>
+                                    <Video url={video.key} title={video.name} />
+                                </div>
+                            )
+                        })}
+                    </>
+                )}
             </section>
             <section>
                 <Title>
@@ -83,7 +129,7 @@ function Detail() {
                             return(
                                 <span key={genre.id}>{genre.name}</span>
                             )
-                })}
+                        })}
                     </div>
                 </SubTitle>
 
@@ -105,10 +151,14 @@ const Container = styled.div`
         flex-direction: column;
         align-items: center;
     }
+    section:nth-child(2) {
+        padding-bottom: 30px;
+    }
 `
 const Image = styled.figure`
     margin-top: 10px;
-    box-shadow: 0 0 12px rgb(0, 0, 100);
+    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0 16px  10px -10px;
     img {
         border-radius: 4px;
     }
@@ -187,4 +237,29 @@ const Description = styled.div`
     margin-top: 16px;
     color: rgb(249, 249, 249);
     max-width: 760px
+`
+const ButtonClosed = styled.button`
+    margin-bottom: 10px;
+
+    .button-closed {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 50px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #000;
+        background: #fff;
+        border: none;
+        outiline: none;
+        border-radius: 4px;
+        transition: all 255ms;
+    }
+    .button-closed:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
 `
