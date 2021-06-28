@@ -9,6 +9,7 @@ import playWhite from '../atends/images/play-icon-white.png';
 import group from '../atends/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Detail() {
     const { id } = useParams();
