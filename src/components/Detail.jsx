@@ -53,10 +53,8 @@ function Detail() {
     useEffect(() => {
         getData(`movie/${id}`);
         getData(`movie/${id}/videos`);
-        return () => {
-            setIsLoading(true);
-        }
-        // eslint-disable-next-lines
+
+    // eslint-disable-next-line
     }, [id]);
 
 
