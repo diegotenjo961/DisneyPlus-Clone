@@ -73,7 +73,7 @@ function Detail() {
         return <Loading />
     }
     if(error){
-        return <p>{error.message}</p>
+        return <h4>{error.message}</h4>
     }
     return (
         <Container>
@@ -123,7 +123,7 @@ function Detail() {
                 <SubTitle>
                     <span>{movie.release_date}</span>
                     <div>
-                        {movie.genres.map(genre => {
+                        {movie.genres && movie.genres.map(genre => {
                             return(
                                 <span key={genre.id}>{genre.name}</span>
                             )
