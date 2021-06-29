@@ -152,6 +152,9 @@ const Container = styled.div`
     section:nth-child(2) {
         padding-bottom: 30px;
     }
+    @media (max-width: 500px){
+        margin: 0 10px;
+    }
 `
 const Image = styled.figure`
     margin-top: 10px;
@@ -159,6 +162,11 @@ const Image = styled.figure`
     rgb(0 0 0 / 73%) 0 16px  10px -10px;
     img {
         border-radius: 4px;
+        width: 100%;
+        height: 100%;
+    }
+    @media (max-width: 500px){
+        width: 100%;
     }
 `
 const Title = styled.div``
@@ -167,6 +175,11 @@ const Controls = styled.div`
     display: flex;
     align-items: center;
     padding: 20px;
+    flex-wrap: wrap;
+
+    button {
+        margin-top: 10px;
+    }
 `
 const PlayButton = styled.button`
     border-radius: 4px;
