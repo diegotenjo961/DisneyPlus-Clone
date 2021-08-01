@@ -1,6 +1,8 @@
 const API = (path) => {
+    const KEY = process.env.REACT_APP_API_KEY;
+
     return (
-        `https://api.themoviedb.org/3/${path}?api_key=f3e86b006ceea988168f3bd390cb831f`
+        `https://api.themoviedb.org/3/${path}?api_key=${KEY}`
     )
 }
 

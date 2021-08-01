@@ -10,11 +10,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-// IMAGES SLIDER
-// import sliderBadging from '../atends/images/slider-badging.jpg';
-// import sliderBadag from '../atends/images/slider-badag.jpg';
-// import sliderScale from '../atends/images/slider-scale.jpg';
-// import sliderScales from '../atends/images/slider-scales.jpg';
 
 function ImgSlider() {
     const [movies, setMovies] = useState([]);
@@ -89,17 +84,17 @@ function ImgSlider() {
 
     return (
         <Carousel {...settings}>
-            <Wrap to={`/detail/${movies[randomSlice.id1].id}`}>
-                <img src={imageMovie(movies[randomSlice.id1].backdrop_path)}  alt={`${movies[randomSlice.id1].title}`} />
+            <Wrap to={`/detail/${movies[13].id}`}>
+                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[randomSlice.id2].id}`}>
-                <img src={imageMovie(movies[randomSlice.id2].backdrop_path)}  alt={`${movies[randomSlice.id2].title}`} />
+            <Wrap to={`/detail/${movies[13].id}`}>
+                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[randomSlice.id3].id}`}>
-                <img src={imageMovie(movies[randomSlice.id3].backdrop_path)}  alt={`${movies[randomSlice.id3].title}`} />
+            <Wrap to={`/detail/${movies[13].id}`}>
+                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[randomSlice.id4].id}`}>
-                <img src={imageMovie(movies[randomSlice.id4].backdrop_path)}  alt={`${movies[randomSlice.id4].title}`} />
+            <Wrap to={`/detail/${movies[13].id}`}>
+                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
             </Wrap>
         </Carousel>
     )
