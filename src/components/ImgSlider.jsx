@@ -23,58 +23,64 @@ function ImgSlider() {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
     };
 
-    const getNumRandom = () => {
-        let numRandom = Math.floor(Math.random() * 20);
 
-        if(randomSlice[0] !== undefined){
-            for(let num of randomSlice){
-                if(numRandom === num){
-                    return getNumRandom();
-                }
-            }
-        }
-
-        const arrayID = randomSlice.push(numRandom);
-        setRandomSlice(arrayID);
-        return numRandom;
+    const getData = async () => {
+        setIsLoading(true);
+        await axios.get(API('movie/upcoming'))
+        .then(response => {
+            setMovies(response.data.results);
+            setIsLoading(false);
+        })
+        .catch(error => {
+            setIsLoading(false);
+            setError(error);
+        });
     }
 
-    useEffect(() => {
-        const getData = async () => {
-            setIsLoading(true);
-            await axios.get(API('movie/upcoming'))
-            .then(response => {
-                setMovies(response.data.results);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                setIsLoading(false);
-                setError(error);
-            });
+    // for validate the equals numbers
+    const generateRandomSlice = () => {
+        setRandomSlice([]);
+        const arrayIds = [];
+        let count = 0;
+
+        while(count < 4){
+            const numRandom = Math.floor(Math.random() * 20);
+            let validNum = true;
+            if(arrayIds[0] !== undefined){
+                arrayIds.forEach((num) => {
+                    if(numRandom === num){
+                        validNum = false;
+                    }
+                })
+            }
+            if(!validNum){
+                continue;
+            }
+            arrayIds.push(numRandom)
+            count += 1
         }
+        setRandomSlice(arrayIds)
+    }
+
+
+    useEffect(() => {
         getData();
+        generateRandomSlice();
     }, []);
 
-    useEffect(() => {
-        const numbersRandomSlice = () => {
-            setRandomSlice([]);
-            const id1 = getNumRandom();
-            const id2 = getNumRandom();
-            const id3 = getNumRandom();
-            const id4 = getNumRandom();
-
-            return {id1, id2, id3, id4}
-        }
-        setRandomSlice(numbersRandomSlice());
-        // eslint-disable-next-line
-    }, [])
 
     const imageMovie = (image) => {
         return `https://image.tmdb.org/t/p/w500${image}`;
     }
+
+
+    const getMovie = (num) => {
+        return movies[randomSlice[num]];
+    }
+
     if(isLoading){
         return <Loading />
     }
@@ -84,17 +90,24 @@ function ImgSlider() {
 
     return (
         <Carousel {...settings}>
-            <Wrap to={`/detail/${movies[13].id}`}>
-                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
+            <Wrap to={`/detail/${getMovie(0).id}`}>
+                <img src={imageMovie(getMovie(0).backdrop_path)}
+                    alt={`${getMovie(0).title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[13].id}`}>
-                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
+
+            <Wrap to={`/detail/${getMovie(1).id}`}>
+                <img src={imageMovie(getMovie(1).backdrop_path)}
+                    alt={`${getMovie(1).title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[13].id}`}>
-                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
+
+            <Wrap to={`/detail/${getMovie(2).id}`}>
+                <img src={imageMovie(getMovie(2).backdrop_path)}
+                    alt={`${getMovie(2).title}`} />
             </Wrap>
-            <Wrap to={`/detail/${movies[13].id}`}>
-                <img src={imageMovie(movies[13].backdrop_path)}  alt={`${movies[13].title}`} />
+
+            <Wrap to={`/detail/${getMovie(3).id}`}>
+                <img src={imageMovie(getMovie(3).backdrop_path)}
+                    alt={`${getMovie(3).title}`} />
             </Wrap>
         </Carousel>
     )
@@ -118,19 +131,33 @@ const Carousel = styled(Slider)`
 
     .slick-list {
         overflow: visible;
+        &:hover {
+            .slick-prev:before {
+                display: block;
+            }
+            .slick-next:before {
+                display: block;
+            }
+        }
     }
     button {
         z-index: 1;
     }
     .slick-prev:before {
-        color: transparent;
-        font-size: 50px;
-        cursor: context-menu;
+        font-size: 2rem;
+        display: none;
     }
     .slick-next:before {
-        color: transparent;
-        font-size: 50px;
-        cursor: context-menu;
+        font-size: 2rem;
+        display: none;
+    }
+    &:hover {
+        .slick-prev:before {
+            display: block;
+        }
+        .slick-next:before {
+            display: block;
+        }
     }
     @media (max-width: 700px){
         display: none;
