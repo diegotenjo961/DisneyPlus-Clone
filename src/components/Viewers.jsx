@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 // images viewers
-import ViewersDisney from '../atends/images/viewers-disney.png';
-import ViewersPixar from '../atends/images/viewers-pixar.png';
-import ViewersMarvel from '../atends/images/viewers-marvel.png';
-import ViewersStartwars from '../atends/images/viewers-starwars.png';
-import ViewersNational from '../atends/images/viewers-national.png';
+import ViewersDisney from '../assets/images/viewers-disney.png';
+import ViewersPixar from '../assets/images/viewers-pixar.png';
+import ViewersMarvel from '../assets/images/viewers-marvel.png';
+import ViewersStartwars from '../assets/images/viewers-starwars.png';
+import ViewersNational from '../assets/images/viewers-national.png';
 
 // videos viwers
-import videoDisney from '../atends/videos/1564674844-disney.mp4';
-import videoPixar from '../atends/videos/1564676714-pixar.mp4';
-import videoMarvel from '../atends/videos/1564676115-marvel.mp4';
-import videoStartwars from '../atends/videos/1608229455-star-wars.mp4';
-import videoNational from '../atends/videos/1564676296-national-geographic.mp4';
+import videoDisney from '../assets/videos/1564674844-disney.mp4';
+import videoPixar from '../assets/videos/1564676714-pixar.mp4';
+import videoMarvel from '../assets/videos/1564676115-marvel.mp4';
+import videoStartwars from '../assets/videos/1608229455-star-wars.mp4';
+import videoNational from '../assets/videos/1564676296-national-geographic.mp4';
 
 function Viewers() {
     return (

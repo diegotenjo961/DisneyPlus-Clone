@@ -11,7 +11,7 @@ import Movies from './Movies';
 // import { selectMovies } from '../features/movie/movieSlice';
 // import { useSelector } from 'react-redux';
 
-import backgroundHome from '../atends/images/home-background.png';
+import backgroundHome from '../assets/images/home-background.png';
 
 function Home() {
     const history = useHistory();

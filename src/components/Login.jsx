@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux';
 
 import GoogleLogin from 'react-google-login';
 
-import logoOne from '../atends/images/cta-logo-one.svg';
-import logoTwo from '../atends/images/cta-logo-two.png';
-import BackgroundImage from '../atends/images/login-background.jpg';
+import logoOne from '../assets/images/cta-logo-one.svg';
+import logoTwo from '../assets/images/cta-logo-two.png';
+import BackgroundImage from '../assets/images/login-background.jpg';
 
 function Login() {
     const dispatch = useDispatch();

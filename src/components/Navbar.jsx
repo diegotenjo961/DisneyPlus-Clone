@@ -5,15 +5,15 @@ import { useHistory } from 'react-router-dom';
 
 import GoogleLogin from 'react-google-login';
 
-import LogoDisney from '../atends/images/logo.svg';
+import LogoDisney from '../assets/images/logo.svg';
 
 // ICONST NAVBAR
-import iconHome from '../atends/images/home-icon.svg';
-import iconSearch from '../atends/images/search-icon.svg';
-import iconWatchlist from '../atends/images/watchlist-icon.svg';
-import iconOriginal from '../atends/images/original-icon.svg';
-import iconMovies from '../atends/images/movie-icon.svg';
-import iconSeries from '../atends/images/series-icon.svg';
+import iconHome from '../assets/images/home-icon.svg';
+import iconSearch from '../assets/images/search-icon.svg';
+import iconWatchlist from '../assets/images/watchlist-icon.svg';
+import iconOriginal from '../assets/images/original-icon.svg';
+import iconMovies from '../assets/images/movie-icon.svg';
+import iconSeries from '../assets/images/series-icon.svg';
 
 import { selectUserName, setUserLogin, setSignOut} from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';

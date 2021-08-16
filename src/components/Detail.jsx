@@ -7,9 +7,9 @@ import Video from './Video';
 import API from '../API';
 
 // Icons
-import play from '../atends/images/play-icon-black.png';
-import playWhite from '../atends/images/play-icon-white.png';
-import group from '../atends/images/group-icon.png';
+import play from '../assets/images/play-icon-black.png';
+import playWhite from '../assets/images/play-icon-white.png';
+import group from '../assets/images/group-icon.png';
 
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
