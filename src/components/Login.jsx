@@ -14,6 +14,7 @@ import BackgroundImage from '../assets/images/login-background.jpg';
 function Login() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const clientId = process.env.REACT_APP_CLIENT_ID;
 
     if(localStorage.getItem('token')){
         history.push('/');
@@ -35,7 +36,7 @@ function Login() {
             <CTA>
                 <CTALogoOne src={logoOne}/>
                 <GoogleLogin
-                        clientId="369244447701-8ouhrgcia28c0dpqg775u9t8ce4vpsv9.apps.googleusercontent.com"
+                        clientId={clientId}
                         render={renderProps => (
                             <SignUp onClick={renderProps.onClick} disabled={renderProps.disabled}>GET ALL THERE</SignUp>
                         )}
@@ -43,7 +44,7 @@ function Login() {
                         onSuccess={signIn}
                         onFailure={signIn}
                         cookiePolicy={'single_host_origin'}
-                    /> 
+                    />
                 <Description>
                     Get Premiere Access to Raya and the Last Dragon for and additional fee with a Disney+ suscription.
                     As of 03/26/21, the price of Disney+ and the Disney Bundle will increase by $1.

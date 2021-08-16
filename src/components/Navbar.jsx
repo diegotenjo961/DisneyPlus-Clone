@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from 'react-redux';
 function Navbar() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const clientId = process.env.REACT_APP_CLIENT_ID;
 
     const userName = useSelector(selectUserName);
 
@@ -51,7 +52,7 @@ function Navbar() {
             {!localStorage.getItem('token') && !userName ?
                 <LoginContainer>
                     <GoogleLogin
-                        clientId="369244447701-8ouhrgcia28c0dpqg775u9t8ce4vpsv9.apps.googleusercontent.com"
+                        clientId={clientId}
                         render={renderProps => (
                             <Login onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Login>
                         )}
@@ -59,7 +60,7 @@ function Navbar() {
                         onSuccess={signIn}
                         onFailure={signIn}
                         cookiePolicy={'single_host_origin'}
-                    /> 
+                    />
                 </LoginContainer>
                 :
                 <React.Fragment>
