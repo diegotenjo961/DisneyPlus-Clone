@@ -1,41 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import API from '../API';
+import { getMovieCategory } from '../services/movie';
 import Loading from './Loading';
 
-const Movies = (props) => {
+const Movies = ({ path, title }) => {
     const [movies, setMovies] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getData = async () => {
-            setIsLoading(true);
-            await axios.get(API(props.path))
-            .then(response => {
-                setMovies(response.data.results);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                setIsLoading(false);
-                new Error(error);
-                setError(error);
-            });
-        }
-        getData();
-    }, [props.path]);
-    if(isLoading){
-        return <Loading />
-    }
-    if(error){
-        return <h4 color="red">{error.message}</h4>
-    }
+      getMovieCategory(path)
+				.then(res => setMovies(res.results))
+				.catch(err => setError(err))
+				.finally(() => setIsLoading(false));
+		}, [path]);
+
+    if(isLoading) return <Loading />;
+    if(error) return <h4 color="red">{error.message}</h4>;
     return (
         <Container>
-            <h3>{props.title || 'TYPE MOVIES'}</h3>
+            <h3>{title || 'TYPE MOVIES'}</h3>
             <Content>
                 {
                     movies.map(movie => {

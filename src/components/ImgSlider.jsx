@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
-import axios from 'axios';
 import styled from 'styled-components';
 
-import API from '../API';
 import Loading from './Loading';
+
+import { getMovieCategory } from '../services/movie';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,20 +25,6 @@ function ImgSlider() {
         slidesToScroll: 1,
         autoplay: false,
     };
-
-
-    const getData = async () => {
-        setIsLoading(true);
-        await axios.get(API('movie/upcoming'))
-        .then(response => {
-            setMovies(response.data.results);
-            setIsLoading(false);
-        })
-        .catch(error => {
-            setIsLoading(false);
-            setError(error);
-        });
-    }
 
     // for validate the equals numbers
     const generateRandomSlice = () => {
@@ -67,26 +53,24 @@ function ImgSlider() {
 
 
     useEffect(() => {
-        getData();
+        setIsLoading(true);
+        const category = 'upcoming';
+        getMovieCategory(category)
+					.then(res => setMovies(res.response))
+					.catch(err => setError(err))
+					.finally(() => setIsLoading(false));
         generateRandomSlice();
     }, []);
 
 
-    const imageMovie = (image) => {
-        return `https://image.tmdb.org/t/p/w500${image}`;
-    }
+    const imageMovie = (image) => `https://image.tmdb.org/t/p/w500${image}`;
 
 
-    const getMovie = (num) => {
-        return movies[randomSlice[num]];
-    }
+    const getMovie = (num) => movies[randomSlice[num]];
 
-    if(isLoading){
-        return <Loading />
-    }
-    if(error){
-        return <h4>{error.message}</h4>
-    }
+
+    if(isLoading) return <Loading />;
+    if(error) return <h4>{error.message}</h4>;
 
     return (
         <Carousel {...settings}>

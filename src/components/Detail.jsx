@@ -1,18 +1,17 @@
 import React, { useState, useEffect} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 import Loading from './Loading';
 import Video from './Video';
-import API from '../API';
+
+import { getMovieDetails, getMovieTrailer } from '../services/movie';
 
 // Icons
 import play from '../assets/images/play-icon-black.png';
 import playWhite from '../assets/images/play-icon-white.png';
 import group from '../assets/images/group-icon.png';
 
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 function Detail() {
     const { id } = useParams();
@@ -27,40 +26,25 @@ function Detail() {
         history.push('/login');
     }
 
-    const getData = async (path) => {
-        setIsLoading(true);
-        await axios.get(API(path))
-        .then(response => {
-            switch (path) {
-                case `movie/${id}`:
-                    setMovie(response.data);
-                    break;
-                case `movie/${id}/videos`:
-                    setVideos(response.data);
-                    break;
-                default:
-                    console.log('Please put the correct path');
-            }
-            setIsLoading(false);
-        })
-        .catch(error => {
+    useEffect(() => {
+			setIsLoading(true);
+
+			const [movieDetails, movieTrailer] = Promise.all([
+					getMovieDetails(id),
+					getMovieTrailer(id)
+				]).then(res => {
+					setMovie(movieDetails);
+					setVideos(movieTrailer);
+				}).catch(error => {
             new Error(error);
-            setIsLoading(false);
             setError(error);
         })
-    }
-
-    useEffect(() => {
-        getData(`movie/${id}`);
-        getData(`movie/${id}/videos`);
-
-    // eslint-disable-next-line
+				.finally(() => setIsLoading(false));
     }, [id]);
 
 
-    const imageMovie = (image) => {
-        return `https://image.tmdb.org/t/p/w500${image}`;
-    }
+    const imageMovie = image => `https://image.tmdb.org/t/p/w500${image}`;
+    
 
     const handleClick = async e => {
         if(e.target.className === 'button-closed'){
@@ -69,12 +53,9 @@ function Detail() {
         return setBooleanVideo(true);
     }
 
-    if(isLoading){
-        return <Loading />
-    }
-    if(error){
-        return <h4>{error.message}</h4>
-    }
+    if(isLoading) return <Loading />;
+
+    if(error) return <h4>{error.message}</h4>;
     return (
         <Container>
             <section>
@@ -102,9 +83,9 @@ function Detail() {
                 {booleanVideo && (
                     <>
                     <ButtonClosed>
-                        <div className="button-closed" onClick={handleClick}>
+                        <span className="button-closed" onClick={handleClick}>
                             Close
-                        </div>
+                        </span>
                     </ButtonClosed>
                         {videos.results.map(video => {
                             return(
