@@ -25,9 +25,9 @@ function Home() {
         <Container>
             <ImgSlider />
             <Viewers />
-            <Movies path='/popular' title='POPULAR MOVIES'/>
-            <Movies path='/top_rated' title='TOP RELATED'/>
-            <Movies path='/upcoming' title='UPCOMING'/>
+            <Movies category='popular' title='POPULAR MOVIES'/>
+            <Movies category='top_rated' title='TOP RELATED'/>
+            <Movies category='upcoming' title='UPCOMING'/>
         </Container>
     )
 }

@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { getMovieCategory } from '../services/movie';
 import Loading from './Loading';
 
-const Movies = ({ path, title }) => {
+const Movies = ({ category, title }) => {
     const [movies, setMovies] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-      getMovieCategory({ path })
+      getMovieCategory({ category })
 				.then(res => setMovies(res.results))
 				.catch(err => setError(err))
 				.finally(() => setIsLoading(false));
