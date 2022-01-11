@@ -15,7 +15,7 @@ const Movies = ({ category, title }) => {
 				.then(res => setMovies(res.results))
 				.catch(err => setError(err))
 				.finally(() => setIsLoading(false));
-		}, [path]);
+		}, [category]);
 
     if(isLoading) return <Loading />;
     if(error) return <h4 color="red">{error.message}</h4>;
