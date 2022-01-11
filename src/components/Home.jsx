@@ -15,7 +15,7 @@ import backgroundHome from '../assets/images/home-background.png';
 
 function Home() {
     const history = useHistory();
-		console.log('changes save')
+		console.log('Pruff word')
 
     if (!localStorage.getItem('token')) {
         history.push('/login');
