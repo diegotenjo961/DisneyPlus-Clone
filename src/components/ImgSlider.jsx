@@ -55,7 +55,7 @@ function ImgSlider() {
     useEffect(() => {
         setIsLoading(true);
         const category = 'upcoming';
-        getMovieCategory(category)
+        getMovieCategory({ category })
 					.then(res => setMovies(res.response))
 					.catch(err => setError(err))
 					.finally(() => setIsLoading(false));

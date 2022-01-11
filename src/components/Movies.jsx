@@ -11,7 +11,7 @@ const Movies = ({ path, title }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-      getMovieCategory(path)
+      getMovieCategory({ path })
 				.then(res => setMovies(res.results))
 				.catch(err => setError(err))
 				.finally(() => setIsLoading(false));

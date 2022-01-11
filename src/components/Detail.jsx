@@ -30,8 +30,8 @@ function Detail() {
 			setIsLoading(true);
 
 			const [movieDetails, movieTrailer] = Promise.all([
-					getMovieDetails(id),
-					getMovieTrailer(id)
+					getMovieDetails({ id }),
+					getMovieTrailer({ id })
 				]).then(res => {
 					setMovie(movieDetails);
 					setVideos(movieTrailer);
