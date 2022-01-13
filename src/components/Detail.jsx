@@ -29,12 +29,12 @@ function Detail() {
     useEffect(() => {
 			setIsLoading(true);
 
-			const [movieDetails, movieTrailer] = Promise.all([
+			Promise.all([
 					getMovieDetails({ id }),
 					getMovieTrailer({ id })
 				]).then(res => {
-					setMovie(movieDetails);
-					setVideos(movieTrailer);
+					setMovie(res[0]);
+					setVideos(res[1]);
 				}).catch(error => {
             new Error(error);
             setError(error);

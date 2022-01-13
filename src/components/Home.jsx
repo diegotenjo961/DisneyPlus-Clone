@@ -6,16 +6,10 @@ import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
 import Movies from './Movies';
 
-// import { useDispatch } from "react-redux";
-// import { setMovies } from '../features/movie/movieSlice';
-// import { selectMovies } from '../features/movie/movieSlice';
-// import { useSelector } from 'react-redux';
-
 import backgroundHome from '../assets/images/home-background.png';
 
 function Home() {
     const history = useHistory();
-		console.log('Pruff word')
 
     if (!localStorage.getItem('token')) {
         history.push('/login');

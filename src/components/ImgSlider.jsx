@@ -16,8 +16,6 @@ function ImgSlider() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [randomSlice, setRandomSlice] = useState([]);
-		const arrayIds = [...Array(21).keys()];
-		arrayIds.shift();	
 
 		const settings = {
         dots: true,
@@ -35,6 +33,9 @@ function ImgSlider() {
 					.then(res => setMovies(res.results))
 					.catch(err => setError(err))
 					.finally(() => setIsLoading(false));
+
+			const arrayIds = [...Array(21).keys()];
+			arrayIds.shift();
 			const randomIds = [
 				...arrayIds
 				.sort(() => 0.5 - Math.random())
@@ -46,7 +47,7 @@ function ImgSlider() {
 
     const getMovie = (num) => movies[randomSlice[num]];
 
-    if(isLoading) return <Loading />;
+    if(isLoading && !!randomSlice) return <Loading />;
     if(error) return <h4>{error.message}</h4>;
 
     return (
