@@ -27,29 +27,29 @@ function ImgSlider() {
     };
 
     useEffect(() => {
-        setIsLoading(true);
+				const arrayIds = [...Array(21).keys()];
+				arrayIds.shift();
+				const randomIds = [
+					...arrayIds
+					.sort(() => 0.5 - Math.random())
+				].slice(0, 4);
+				setRandomSlice(randomIds)
+
         const category = 'upcoming';
         getMovieCategory({ category })
 					.then(res => setMovies(res.results))
 					.catch(err => setError(err))
-					.finally(() => setIsLoading(false));
-
-			const arrayIds = [...Array(21).keys()];
-			arrayIds.shift();
-			const randomIds = [
-				...arrayIds
-				.sort(() => 0.5 - Math.random())
-			].slice(0, 4);
-			setRandomSlice(randomIds)
+					.finally(() => setIsLoading(false));			
     }, []);
 
     const imageMovie = (image) => `https://image.tmdb.org/t/p/w500${image}`;
 
     const getMovie = (num) => movies[randomSlice[num]];
-
-    if(isLoading && !!randomSlice) return <Loading />;
+	
+    if(isLoading && !movies.length){
+			return <Loading />
+		}
     if(error) return <h4>{error.message}</h4>;
-
     return (
         <Carousel {...settings}>
             <Wrap to={`/detail/${getMovie(0).id}`}>

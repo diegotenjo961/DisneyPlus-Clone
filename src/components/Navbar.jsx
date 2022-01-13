@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-import GoogleLogin from 'react-google-login';
+import LoginButton from './LoginButton';
 
 import LogoDisney from '../assets/images/logo.svg';
 
@@ -15,26 +15,14 @@ import iconOriginal from '../assets/images/original-icon.svg';
 import iconMovies from '../assets/images/movie-icon.svg';
 import iconSeries from '../assets/images/series-icon.svg';
 
-import { selectUserName, setUserLogin, setSignOut} from '../features/user/userSlice';
+import { selectUserName, setSignOut} from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Navbar() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-
     const userName = useSelector(selectUserName);
 
-    const signIn = (response) => {
-        localStorage.setItem('token',response.accessToken);
-        localStorage.setItem('photo',response.profileObj.imageUrl);
-        dispatch(setUserLogin({
-            name: response.profileObj.name,
-            email: response.profileObj.email,
-            photo: response.profileObj.imageUrl,
-        }))
-        history.push('/');
-    }
 
     const signOut = () => {
         let confirmQ = window.confirm('Are you sure logout your session ?');
@@ -47,22 +35,12 @@ function Navbar() {
 
     return (
         <Nav>
-            <Link to='/'><Logo src={LogoDisney}/></Link>
+            <Link to='/'>
+							<Logo src={LogoDisney}/>
+						</Link>
 
-            {!localStorage.getItem('token') && !userName ?
-                <LoginContainer>
-                    <GoogleLogin
-                        clientId={clientId}
-                        render={renderProps => (
-                            <Login onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</Login>
-                        )}
-                        buttonText="Login"
-                        onSuccess={signIn}
-                        onFailure={signIn}
-                        cookiePolicy={'single_host_origin'}
-                    />
-                </LoginContainer>
-                :
+            {!localStorage.getItem('token') && 
+							!userName ? <LoginButton />:
                 <React.Fragment>
                         <NavMenu>
 
@@ -127,31 +105,6 @@ const Nav = styled.nav`
 const Logo = styled.img`
     width: 80px;
 `
-
-const Login = styled.button`
-    cursor: pointer;
-    color: #fff;
-    border: 1px solid #f9f9f9;
-    padding: 8px 16px;
-    border-radius: 4px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background-color: rgba(0, 0, 0, 0.6);
-    transition: all 0.2s ease 0s;
-
-    &:hover {
-        background-color: #f9f9f9;
-        color: #000;
-        border-color: transparent;
-        font-weight: 400;
-    }
-`
-const LoginContainer = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-`
-
 const NavMenu = styled.section`
     display: flex;
     flex: 1;
@@ -205,6 +158,22 @@ const UserImg = styled.img`
     height: 40px;
     border-radius: 50%;
 `
-const SignOut = styled(Login)`
+const SignOut = styled.button`
+		cursor: pointer;
+    color: #fff;
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.2s ease 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: #000;
+        border-color: transparent;
+        font-weight: 400;
+    }
     margin-left: 10px;
 `

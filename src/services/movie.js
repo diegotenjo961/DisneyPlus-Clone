@@ -11,7 +11,7 @@ export const getMovieTrailer = async ({ id }) => {
 	return await axios.get(apiUrl).then(res => res.data);
 }
 
-export const getMovieCategory = ({ category }) => {
+export const getMovieCategory = async ({ category }) => {
 	const apiUrl = getApiUrl(`movie/${category}`);
-	return axios.get(apiUrl).then(res => res.data);
+	return await axios.get(apiUrl).then(res => res.data);
 }
