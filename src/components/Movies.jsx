@@ -19,6 +19,7 @@ const Movies = ({ category, title }) => {
 
     if(isLoading) return <Loading />;
     if(error) return <h4 color="red">{error.message}</h4>;
+
     return (
         <Container>
             <h3>{title || 'TYPE MOVIES'}</h3>

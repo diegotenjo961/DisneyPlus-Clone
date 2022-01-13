@@ -16,8 +16,10 @@ function ImgSlider() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [randomSlice, setRandomSlice] = useState([]);
+		const arrayIds = [...Array(21).keys()];
+		arrayIds.shift();	
 
-    let settings = {
+		const settings = {
         dots: true,
         infinite: true,
         speed: 500,
@@ -26,48 +28,23 @@ function ImgSlider() {
         autoplay: false,
     };
 
-    // for validate the equals numbers
-    const generateRandomSlice = () => {
-        setRandomSlice([]);
-        const arrayIds = [];
-        let count = 0;
-
-        while(count < 4){
-            const numRandom = Math.floor(Math.random() * 20);
-            let validNum = true;
-            if(arrayIds[0] !== undefined){
-                arrayIds.forEach((num) => {
-                    if(numRandom === num){
-                        validNum = false;
-                    }
-                })
-            }
-            if(!validNum){
-                continue;
-            }
-            arrayIds.push(numRandom)
-            count += 1
-        }
-        setRandomSlice(arrayIds)
-    }
-
-
     useEffect(() => {
         setIsLoading(true);
         const category = 'upcoming';
         getMovieCategory({ category })
-					.then(res => setMovies(res.response))
+					.then(res => setMovies(res.results))
 					.catch(err => setError(err))
 					.finally(() => setIsLoading(false));
-        generateRandomSlice();
+			const randomIds = [
+				...arrayIds
+				.sort(() => 0.5 - Math.random())
+			].slice(0, 4);
+			setRandomSlice(randomIds)
     }, []);
-
 
     const imageMovie = (image) => `https://image.tmdb.org/t/p/w500${image}`;
 
-
     const getMovie = (num) => movies[randomSlice[num]];
-
 
     if(isLoading) return <Loading />;
     if(error) return <h4>{error.message}</h4>;
