@@ -43,18 +43,27 @@ const Movies = ({ category, title }) => {
 export default Movies;
 
 const Container = styled.div`
+		@media(max-width: 700px) {
+			h3 {
+			  font-size: 1rem;
+				letter-space: 0.5px;
+				font-weight: 400; 
+			}
+		}
 `
 const Content = styled.div`
     margin: 20px 0;
+		margin-top: 12px;
     display: grid;
     grid-gap: 25px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
 
     @media(max-width: 700px){
-        display: block;
-        div {
-            margin-bottom: 26px;
-        }
+		  padding-bottom: 16px;
+		  grid-auto-flow:column;  
+			grid-template-columns: none;
+		  grid-gap:10px; 
+		  overflow:auto;
     }
 `
 const Wrap = styled.div`
@@ -76,4 +85,9 @@ const Wrap = styled.div`
         transform: scale(1.05);
         border-color: rgba(249, 249, 249, 0.8);
     }
+		@media(max-width: 700px){
+			width: 104px;
+			border-radius: 4px;
+    border: 1px solid rgba(249, 249, 249, 0.1);
+		}
 `
