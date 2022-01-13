@@ -55,26 +55,22 @@ function Viewers() {
 export default Viewers;
 
 const Container = styled.div`
-    margin-top: 30px;
+    margin-top: 4px;
     display: grid;
     padding: 30px 0px 26px;
     grid-gap: 25px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
 
-    @media(max-width: 700px){
-        display: block;
-
-        margin-top: 10px;
-
-        div {
-            display: block;
-            margin-bottom: 26px;
-        }
+    @media(max-width: 700px){  
+		  grid-auto-flow:column;  
+			grid-template-columns: none;
+		  grid-gap:10px; 
+		  overflow:auto;
     }
 `
 
 const Wrap = styled.div`
-
+		width: 100px;
     border-radius: 10px;
     cursor: pointer;
     border: 3px solid  rgba(249, 249,249, 0.1 );
@@ -112,6 +108,5 @@ const Wrap = styled.div`
         video {
             opacity: 0.9;
         }
-
     }
 `

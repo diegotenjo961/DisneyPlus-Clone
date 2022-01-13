@@ -122,13 +122,25 @@ const Carousel = styled(Slider)`
         }
     }
     @media (max-width: 700px){
-        display: none;
-    }
+		  height: 200px;
+	    ul li button {
+        &:before {
+            display: none;
+        }
+		  }
+			&:hover {
+				.slick-prev:before {
+						display: none;
+				}
+				.slick-next:before {
+						display: none;
+				}
+			}
 `
 
 const Wrap = styled(Link)`
     cursor: pointer;
-    height: 400px;
+    height: 200px;
     color: #f9f9f9;
     font-size: 40px;
     font-weight: 600;
@@ -142,6 +154,7 @@ const Wrap = styled(Link)`
         border-radius: 4px;
         width: 100%;
         height: 100%;
+				object-fit: contain;
 
         box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
         rgb(0 0 0 / 73%) 0 16px  10px -10px;
