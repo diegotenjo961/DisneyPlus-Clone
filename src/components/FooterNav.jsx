@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectUserIsLoggedIn } from '../features/user/userSlice';
 import styled from 'styled-components';
 import SignOutButton from './SignOutButton';
 
@@ -8,6 +10,10 @@ import iconSearch from '../assets/images/search-icon.svg';
 import iconWatchlist from '../assets/images/watchlist-icon.svg';
 
 function FooterNav() {
+	const isLoggedIn = useSelector(selectUserIsLoggedIn);
+
+	if(!isLoggedIn) return null;
+
 	return (
 		<FooterNavContainer>
 			<Link to="/">

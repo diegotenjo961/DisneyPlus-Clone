@@ -6,10 +6,14 @@ import LoginButton from './LoginButton';
 import NavMenu from './NavMenu';
 
 import LogoDisney from '../assets/images/logo.svg';
+import { useSelector } from 'react-redux';
+import { selectUserIsLoggedIn } from '../features/user/userSlice';
 
 function Navbar() {
 		const signOut = useSignOut();
 		const userImage = localStorage.getItem('photo');
+		const isLoggedIn = useSelector(selectUserIsLoggedIn);
+	
     return (
         <Nav>
             <Link to='/'>
@@ -17,7 +21,7 @@ function Navbar() {
 						</Link>
 
             {
-							(!localStorage.getItem('token')) ? <LoginButton />:
+							!isLoggedIn ? <LoginButton />:
                 <>
                     <NavMenu />
                     <ContainerUserImg>
