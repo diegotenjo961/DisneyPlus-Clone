@@ -140,7 +140,6 @@ const Carousel = styled(Slider)`
 
 const Wrap = styled(Link)`
     cursor: pointer;
-    height: 200px;
     color: #f9f9f9;
     font-size: 40px;
     font-weight: 600;
@@ -154,7 +153,6 @@ const Wrap = styled(Link)`
         border-radius: 4px;
         width: 100%;
         height: 100%;
-				object-fit: contain;
 
         box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
         rgb(0 0 0 / 73%) 0 16px  10px -10px;
@@ -164,5 +162,10 @@ const Wrap = styled(Link)`
             border: 4px solid rgba(249, 249,249, 0.8 );
         }
     }
-
+		@media(max-width: 700px){
+			height: 200px;
+			img {
+				object-fit: contain;
+			}
+		}
 `

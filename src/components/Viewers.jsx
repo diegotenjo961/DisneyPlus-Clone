@@ -72,7 +72,6 @@ const Container = styled.div`
 `
 
 const Wrap = styled.div`
-		width: 100px;
     border-radius: 10px;
     cursor: pointer;
     border: 3px solid  rgba(249, 249,249, 0.1 );
@@ -111,4 +110,7 @@ const Wrap = styled.div`
             opacity: 0.9;
         }
     }
+		@media(max-width: 700px) {
+			width: 100px;
+		}
 `

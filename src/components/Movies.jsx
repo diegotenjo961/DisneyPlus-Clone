@@ -86,7 +86,7 @@ const Wrap = styled.div`
         border-color: rgba(249, 249, 249, 0.8);
     }
 		@media(max-width: 700px){
-			width: 104px;
+			width: 112px;
 			border-radius: 4px;
     border: 1px solid rgba(249, 249, 249, 0.1);
 		}

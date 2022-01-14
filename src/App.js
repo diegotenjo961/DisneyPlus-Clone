@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar'
+import FooterNav from './components/FooterNav'
 import Home from './components/Home'
 import Detail from './components/Detail'
 import Login from './components/Login';
@@ -27,6 +28,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
+				<FooterNav />
       </Router>
     </div>
   );
