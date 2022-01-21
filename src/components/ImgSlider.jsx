@@ -79,7 +79,8 @@ export default ImgSlider;
 
 const Carousel = styled(Slider)`
     margin-top: 20px;
-
+		height: 0;
+		display: none;
     ul li button {
         &:before {
             font-size: 10px;
@@ -122,6 +123,7 @@ const Carousel = styled(Slider)`
         }
     }
     @media (max-width: 700px){
+		  display: block;
 		  height: 200px;
 	    ul li button {
         &:before {

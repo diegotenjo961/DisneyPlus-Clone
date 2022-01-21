@@ -48,7 +48,7 @@ const FooterNavContainer = styled.div`
 	left: 0;
   height: 48px;
 	background-color: #090b13;
-	display: flex;
+	display: none;
 	justify-content: space-around;
 	aling-items: center;
 	a {
@@ -62,5 +62,8 @@ const FooterNavContainer = styled.div`
 		  width: 28px;
 			height: 28px;
 		}
+	}
+	@media (max-width: 768px) {
+	  display: flex;
 	}
 `
