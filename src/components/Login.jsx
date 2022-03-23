@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
-import { setUserLogin } from '../features/user/userSlice';
 import { useSelector } from 'react-redux';
 import { selectUserIsLoggedIn } from '../features/user/userSlice';
 
