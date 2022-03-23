@@ -27,19 +27,21 @@ function ImgSlider() {
     };
 
     useEffect(() => {
-				const arrayIds = [...Array(21).keys()];
-				arrayIds.shift();
-				const randomIds = [
-					...arrayIds
-					.sort(() => 0.5 - Math.random())
-				].slice(0, 4);
-				setRandomSlice(randomIds)
+		const arrayIds = [...Array(21).keys()];
+		arrayIds.shift();
+        const randomIds = [
+				...arrayIds
+				.sort(() => 0.5 - Math.random())
+		].slice(0, 4);
+		setRandomSlice(randomIds);
+    }, []);
 
+    useEffect(() => {
         const category = 'upcoming';
         getMovieCategory({ category })
-					.then(res => setMovies(res.results))
-					.catch(err => setError(err))
-					.finally(() => setIsLoading(false));			
+			.then(res => setMovies(res.results))
+			.catch(err => setError(err))
+			.finally(() => setIsLoading(false));
     }, []);
 
     const imageMovie = (image) => `https://image.tmdb.org/t/p/w500${image}`;

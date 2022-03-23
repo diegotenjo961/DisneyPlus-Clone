@@ -1,50 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 import { setUserLogin } from '../features/user/userSlice';
-import { useDispatch } from 'react-redux';
-
-import GoogleLogin from 'react-google-login';
+import { useSelector } from 'react-redux';
+import { selectUserIsLoggedIn } from '../features/user/userSlice';
 
 import logoOne from '../assets/images/cta-logo-one.svg';
 import logoTwo from '../assets/images/cta-logo-two.png';
 import BackgroundImage from '../assets/images/login-background.jpg';
 
 function Login() {
-    const dispatch = useDispatch();
+		const { loginWithRedirect } = useAuth0();
     const history = useHistory();
-    const clientId = process.env.REACT_APP_CLIENT_ID;
+	  const isLoggedIn = useSelector(selectUserIsLoggedIn);
 
-    if(localStorage.getItem('token')){
+    if(isLoggedIn){
         history.push('/');
-    }
-
-    const signIn = (response) => {
-        localStorage.setItem('token',response.accessToken);
-        localStorage.setItem('photo',response.profileObj.imageUrl);
-        dispatch(setUserLogin({
-            name: response.profileObj.name,
-            email: response.profileObj.email,
-            photo: response.profileObj.imageUrl,
-        }))
-        history.push('/');
+			  return null;
     }
 
     return (
         <Container>
             <CTA>
                 <CTALogoOne src={logoOne}/>
-                <GoogleLogin
-                        clientId={clientId}
-                        render={renderProps => (
-                            <SignUp onClick={renderProps.onClick} disabled={renderProps.disabled}>GET ALL THERE</SignUp>
-                        )}
-                        buttonText="Login"
-                        onSuccess={signIn}
-                        onFailure={signIn}
-                        cookiePolicy={'single_host_origin'}
-                    />
+								<SignUp onClick={loginWithRedirect}>
+									GET ALL THERE
+								</SignUp>
                 <Description>
                     Get Premiere Access to Raya and the Last Dragon for and additional fee with a Disney+ suscription.
                     As of 03/26/21, the price of Disney+ and the Disney Bundle will increase by $1.

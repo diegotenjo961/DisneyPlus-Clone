@@ -11,20 +11,15 @@ import play from '../assets/images/play-icon-black.png';
 import playWhite from '../assets/images/play-icon-white.png';
 import group from '../assets/images/group-icon.png';
 
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function Detail() {
     const { id } = useParams();
-    const history = useHistory();
     const [movie, setMovie] = useState([]);
     const [videos, setVideos] = useState([]);
     const [booleanVideo, setBooleanVideo] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    if (!localStorage.getItem('token')) {
-        history.push('/login');
-    }
 
     useEffect(() => {
 			setIsLoading(true);

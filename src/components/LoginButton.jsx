@@ -1,46 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-
-import { GoogleLogin } from 'react-google-login';
-import { clientId } from '../config';
-
-import { useDispatch } from 'react-redux';
-import { setUserLogin } from '../features/user/userSlice';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function LoginButton() {
-		const dispatch = useDispatch();
-		const history = useHistory();
-
-    const signIn = (res) => {
-        localStorage.setItem('token',res.accessToken);
-			  localStorage.setItem('photo', res.profileObj.imageUrl);
-        dispatch(setUserLogin({
-            name: res.profileObj.name,
-            email: res.profileObj.email,
-            photo: res.profileObj.imageUrl,
-        }))
-        history.push('/');
-    }
-
-	return (
+	const { loginWithRedirect } = useAuth0();
+		return (
       <LoginContainer>
-        <GoogleLogin
-          clientId={clientId}
-          render={renderProps => (
-            <Login 
-							onClick={renderProps.onClick}	
-							disabled={renderProps.disabled}
-						>
-							Login
-						</Login>
-          )}
-          buttonText="Login"
-          onSuccess={signIn}
-          onFailure={signIn}
-					cookiePolicy={'single_host_origin'}
-				/>
-			</LoginContainer>
+        <Login onClick={loginWithRedirect}>
+					Login
+				</Login>
+      </LoginContainer>
 	);
 }
 

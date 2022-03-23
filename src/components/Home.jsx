@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectUserIsLoggedIn } from '../features/user/userSlice.js';
 
 import ImgSlider from './ImgSlider';
 import Viewers from './Viewers';
@@ -9,11 +12,13 @@ import Movies from './Movies';
 import backgroundHome from '../assets/images/home-background.png';
 
 function Home() {
-    const history = useHistory();
+		const history = useHistory();
+		const isLogged = useSelector(selectUserIsLoggedIn);
 
-    if (!localStorage.getItem('token')) {
-        history.push('/login');
-    }
+	  if(!isLogged) {
+			history.push('/login');
+			return null;
+		}
 
     return (
         <Container>

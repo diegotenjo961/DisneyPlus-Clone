@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import useSignOut from '../hooks/useSignOut';
+import { useSelector } from 'react-redux';
+import { selectUserPhoto } from '../features/user/userSlice';
 
 function SignOutButton() {
 	const [showButton, setShowButton] = useState(false);
 	const signOut = useSignOut();
-	const userImage = localStorage.getItem('photo');
+	const userImage = useSelector(selectUserPhoto);
 
 	return (
 	  <>
