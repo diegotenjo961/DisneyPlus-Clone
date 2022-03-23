@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setSignOut } from '../features/user/userSlice';
 import { useAuth0 } from "@auth0/auth0-react";
+import { redirectUri } from '../config';
 
 function useSignOut() {
 		const { logout } = useAuth0();
@@ -12,7 +13,7 @@ function useSignOut() {
         let confirmQ = window.confirm('Are you sure logout your session ?');
         if(confirmQ){
             dispatch(setSignOut());
-						logout();
+						logout({ returnTo: redirectUri + '/login' });
             history.push('/login')
         }
     }
