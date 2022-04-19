@@ -43,7 +43,7 @@ export default Footer
 
 const FooterContainer = styled.div`
   display: none;
-  @media (min-width: 1000px) {
+  @media (min-width: 380px) {
     height: 140px;
     display: flex;
     justify-content: space-around;

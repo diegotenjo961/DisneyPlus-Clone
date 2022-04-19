@@ -21,23 +21,23 @@ function Navbar () {
       </Link>
 
       {
-							!isLoggedIn
-							  ? <LoginButton />
-							  : <>
-  <NavMenu />
-  <ContainerUserImg>
-    <UserImg
-      src={userImage}
-      alt='Image profile'
-    />
-    <SignOut
-      onClick={signOut}
-    >
-      Sign Out
-    </SignOut>
-  </ContainerUserImg>
+	!isLoggedIn 
+        ? <LoginButton />
+	: <>
+          <NavMenu />
+          <ContainerUserImg>
+            <UserImg
+              src={userImage}
+              alt='Image profile'
+            />
+            <SignOut
+            onClick={signOut}
+            >
+              Sign Out
+            </SignOut>
+          </ContainerUserImg>
            </>
-            }
+      }
     </Nav>
   )
 }

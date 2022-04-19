@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-
-import Loading from './Loading'
-
-import { getMovieCategory } from '../services/movie'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 
-function ImgSlider () {
-  const [movies, setMovies] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [randomSlice, setRandomSlice] = useState([])
+// images slider
+import sliderBadging from '../assets/images/slider-badging.jpg';
+import sliderBadag from '../assets/images/slider-badag.jpg';
+import sliderScale from '../assets/images/slider-scale.jpg';
+import sliderScales from '../assets/images/slider-scales.jpg';
 
-  const settings = {
+function ImgSlider () {
+  // if you search the slider image random see log git 38dea3c
+    const settings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -25,59 +22,34 @@ function ImgSlider () {
     autoplay: false
   }
 
-  useEffect(() => {
-    const arrayIds = [...Array(21).keys()]
-    arrayIds.shift()
-    const randomIds = [
-      ...arrayIds
-        .sort(() => 0.5 - Math.random())
-    ].slice(0, 4)
-    setRandomSlice(randomIds)
-  }, [])
-
-  useEffect(() => {
-    const category = 'upcoming'
-    getMovieCategory({ category })
-      .then(res => setMovies(res.results))
-      .catch(err => setError(err))
-      .finally(() => setIsLoading(false))
-  }, [])
-
-  const imageMovie = (image) => `https://image.tmdb.org/t/p/w500${image}`
-
-  const getMovie = (num) => movies[randomSlice[num]]
-
-  if (isLoading && !movies.length) {
-    return <Loading />
-  }
-  if (error) return <h4>{error.message}</h4>
   return (
     <Carousel {...settings}>
-      <Wrap to={`/detail/${getMovie(0).id}`}>
+
+      <Wrap>
         <img
-          src={imageMovie(getMovie(0).backdrop_path)}
-          alt={`${getMovie(0).title}`}
+          src={sliderScale}
+          alt="sliderScale"
+        />
+      </Wrap>
+ 
+      <Wrap>
+        <img
+          src={sliderBadging}
+          alt="sliderBadging"
         />
       </Wrap>
 
-      <Wrap to={`/detail/${getMovie(1).id}`}>
+      <Wrap>
         <img
-          src={imageMovie(getMovie(1).backdrop_path)}
-          alt={`${getMovie(1).title}`}
+          src={sliderBadag}
+          alt="sliderBadag"
         />
       </Wrap>
-
-      <Wrap to={`/detail/${getMovie(2).id}`}>
+   
+      <Wrap>
         <img
-          src={imageMovie(getMovie(2).backdrop_path)}
-          alt={`${getMovie(2).title}`}
-        />
-      </Wrap>
-
-      <Wrap to={`/detail/${getMovie(3).id}`}>
-        <img
-          src={imageMovie(getMovie(3).backdrop_path)}
-          alt={`${getMovie(3).title}`}
+          src={sliderScales}
+          alt="sliderScales"
         />
       </Wrap>
     </Carousel>
@@ -88,8 +60,7 @@ export default ImgSlider
 
 const Carousel = styled(Slider)`
     margin-top: 20px;
-		height: 0;
-		display: none;
+
     ul li button {
         &:before {
             font-size: 10px;
@@ -103,55 +74,47 @@ const Carousel = styled(Slider)`
 
     .slick-list {
         overflow: visible;
-        &:hover {
-            .slick-prev:before {
-                display: block;
-            }
-            .slick-next:before {
-                display: block;
-            }
-        }
     }
     button {
         z-index: 1;
     }
     .slick-prev:before {
-        font-size: 2rem;
-        display: none;
+        font-size: 36px;
+        cursor: pointer;
     }
     .slick-next:before {
-        font-size: 2rem;
-        display: none;
+        font-size: 36px;
+        cursor: pointer;
     }
-    &:hover {
-        .slick-prev:before {
-            display: block;
-        }
-        .slick-next:before {
-            display: block;
-        }
-    }
+
     @media (max-width: 700px){
-		  display: block;
-		  height: 200px;
-	    ul li button {
+      display: block;
+      height: 200px;
+      ul li button {
         &:before {
-            display: none;
+          display: none;
         }
-		  }
-			&:hover {
-				.slick-prev:before {
-						display: none;
-				}
-				.slick-next:before {
-						display: none;
-				}
-			}
+      } 
+      .slick-prev:before {
+        display: none;
+      }
+      .slick-next:before {
+        display: none;
+      }
+      &:hover {
+        .slick-prev:before {
+	  display: none;
+	}
+        .slick-next:before {
+	  display: none;
+	}
+      }
+    }
 `
 
-const Wrap = styled(Link)`
-    cursor: pointer;
+const Wrap = styled.div`
     color: #f9f9f9;
+    height: 400px;
     font-size: 40px;
     font-weight: 600;
     letter-spacing: 2px;
@@ -169,14 +132,12 @@ const Wrap = styled(Link)`
         rgb(0 0 0 / 73%) 0 16px  10px -10px;
         transition-duration: 300ms;
 
+	object-fit: cover;
         &:hover {
             border: 4px solid rgba(249, 249,249, 0.8 );
         }
     }
-		@media(max-width: 700px){
-			height: 200px;
-			img {
-				object-fit: contain;
-			}
-		}
+    @media(max-width: 700px){
+      height: 200px;
+    }
 `

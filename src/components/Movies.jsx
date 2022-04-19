@@ -27,13 +27,11 @@ const Movies = ({ category, title }) => {
         {
                     movies.map(movie => {
                       return (
-                        <Wrap key={movie.id}>
-                          <Link to={`/detail/${movie.id}`}>
-                            <img
-                              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        <Wrap to={`/detail/${movie.id}`} key={movie.id}>
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                               alt={movie.title || movie.id}
                             />
-                          </Link>
                         </Wrap>
                       )
                     })
@@ -69,7 +67,8 @@ const Content = styled.div`
 		  overflow:auto;
     }
 `
-const Wrap = styled.div`
+const Wrap = styled(Link)`
+    min-height: 220px;
     border-radius: 10px;
     cursor: pointer;
     overflow: hidden;
