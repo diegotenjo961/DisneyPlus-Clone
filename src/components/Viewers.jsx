@@ -1,58 +1,58 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 // images viewers
-import ViewersDisney from '../assets/images/viewers-disney.png';
-import ViewersPixar from '../assets/images/viewers-pixar.png';
-import ViewersMarvel from '../assets/images/viewers-marvel.png';
-import ViewersStartwars from '../assets/images/viewers-starwars.png';
-import ViewersNational from '../assets/images/viewers-national.png';
+import ViewersDisney from '../assets/images/viewers-disney.png'
+import ViewersPixar from '../assets/images/viewers-pixar.png'
+import ViewersMarvel from '../assets/images/viewers-marvel.png'
+import ViewersStartwars from '../assets/images/viewers-starwars.png'
+import ViewersNational from '../assets/images/viewers-national.png'
 
 // videos viwers
-import videoDisney from '../assets/videos/1564674844-disney.mp4';
-import videoPixar from '../assets/videos/1564676714-pixar.mp4';
-import videoMarvel from '../assets/videos/1564676115-marvel.mp4';
-import videoStartwars from '../assets/videos/1608229455-star-wars.mp4';
-import videoNational from '../assets/videos/1564676296-national-geographic.mp4';
+import videoDisney from '../assets/videos/1564674844-disney.mp4'
+import videoPixar from '../assets/videos/1564676714-pixar.mp4'
+import videoMarvel from '../assets/videos/1564676115-marvel.mp4'
+import videoStartwars from '../assets/videos/1608229455-star-wars.mp4'
+import videoNational from '../assets/videos/1564676296-national-geographic.mp4'
 
-function Viewers() {
-    return (
-        <Container>
-            <Wrap>
-                <img src={ViewersDisney} alt="viewers diney" />
-                <video autoPlay loop playsInline>
-                    <source src={videoDisney}/>
-                </video>
-            </Wrap>
-            <Wrap>
-                <img src={ViewersPixar} alt="viewers pixar" />
-                <video autoPlay loop playsInline>
-                    <source src={videoPixar}/>
-                </video>
-            </Wrap>
-            <Wrap>
-                <img src={ViewersMarvel} alt="viewers marvel" />
-                <video autoPlay loop playsInline>
-                    <source src={videoMarvel}/>
-                </video>
-            </Wrap>
-            <Wrap>
-                <img src={ViewersStartwars} alt="viewers star wars" />
-                <video autoPlay loop playsInline>
-                    <source src={videoStartwars}/>
-                </video>
-            </Wrap>
-            <Wrap>
-                <img src={ViewersNational} alt="viewers national geograpic" />
-                <video autoPlay loop playsInline>
-                    <source src={videoNational}/>
-                </video>
-            </Wrap>
-        </Container>
-    )
+function Viewers () {
+  return (
+    <Container>
+      <Wrap>
+        <img src={ViewersDisney} alt='viewers diney' />
+        <video autoPlay loop playsInline>
+          <source src={videoDisney} />
+        </video>
+      </Wrap>
+      <Wrap>
+        <img src={ViewersPixar} alt='viewers pixar' />
+        <video autoPlay loop playsInline>
+          <source src={videoPixar} />
+        </video>
+      </Wrap>
+      <Wrap>
+        <img src={ViewersMarvel} alt='viewers marvel' />
+        <video autoPlay loop playsInline>
+          <source src={videoMarvel} />
+        </video>
+      </Wrap>
+      <Wrap>
+        <img src={ViewersStartwars} alt='viewers star wars' />
+        <video autoPlay loop playsInline>
+          <source src={videoStartwars} />
+        </video>
+      </Wrap>
+      <Wrap>
+        <img src={ViewersNational} alt='viewers national geograpic' />
+        <video autoPlay loop playsInline>
+          <source src={videoNational} />
+        </video>
+      </Wrap>
+    </Container>
+  )
 }
 
-export default Viewers;
+export default Viewers
 
 const Container = styled.div`
     margin-top: 30px;

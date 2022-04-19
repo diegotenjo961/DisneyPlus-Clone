@@ -1,17 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const Loading = () => {
-    return (
-        <Loader>
-            <span></span>
-            <span></span>
-            <span></span>
-        </Loader>
-    );
+  return (
+    <Loader>
+      <span />
+      <span />
+      <span />
+    </Loader>
+  )
 }
 
-export default Loading;
+export default Loading
 
 const Loader = styled.div`
     width: 100vw;

@@ -1,45 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUserIsLoggedIn } from '../features/user/userSlice';
-import styled from 'styled-components';
-import SignOutButton from './SignOutButton';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectUserIsLoggedIn } from '../features/user/userSlice'
+import styled from 'styled-components'
+import SignOutButton from './SignOutButton'
 
-import iconHome from '../assets/images/home-icon.svg';
-import iconSearch from '../assets/images/search-icon.svg';
-import iconWatchlist from '../assets/images/watchlist-icon.svg';
+import iconHome from '../assets/images/home-icon.svg'
+import iconSearch from '../assets/images/search-icon.svg'
+import iconWatchlist from '../assets/images/watchlist-icon.svg'
 
-function FooterNav() {
-	const isLoggedIn = useSelector(selectUserIsLoggedIn);
+function FooterNav () {
+  const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
-	if(!isLoggedIn) return null;
+  if (!isLoggedIn) return null
 
-	return (
-		<FooterNavContainer>
-			<Link to="/">
-				<img 
-					src={iconHome} 
-					alt="Home" 
-				/>
-			</Link>
-			<Link to="/search">
-				<img 
-					src={iconSearch} 
-					alt="Search" 
-				/>
-			</Link>
-			<Link to="/watchlist">
-				<img 
-					src={iconWatchlist} 
-					alt="Watchlist" 
-				/>
-			</Link>
-			<SignOutButton />
-		</FooterNavContainer>
-	);
+  return (
+    <FooterNavContainer>
+      <Link to='/'>
+        <img
+          src={iconHome}
+          alt='Home'
+        />
+      </Link>
+      <Link to='/search'>
+        <img
+          src={iconSearch}
+          alt='Search'
+        />
+      </Link>
+      <Link to='/watchlist'>
+        <img
+          src={iconWatchlist}
+          alt='Watchlist'
+        />
+      </Link>
+      <SignOutButton />
+    </FooterNavContainer>
+  )
 }
 
-export default FooterNav;
+export default FooterNav
 
 const FooterNavContainer = styled.div`
 	position: fixed;

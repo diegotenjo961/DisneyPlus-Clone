@@ -1,48 +1,48 @@
 import React from 'react'
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import useSignOut from '../hooks/useSignOut'
-import LoginButton from './LoginButton';
-import NavMenu from './NavMenu';
+import LoginButton from './LoginButton'
+import NavMenu from './NavMenu'
 
-import LogoDisney from '../assets/images/logo.svg';
-import { useSelector } from 'react-redux';
-import { selectUserIsLoggedIn } from '../features/user/userSlice';
-import { selectUserPhoto } from '../features/user/userSlice';
+import LogoDisney from '../assets/images/logo.svg'
+import { useSelector } from 'react-redux'
+import { selectUserIsLoggedIn, selectUserPhoto } from '../features/user/userSlice'
 
-function Navbar() {
-		const signOut = useSignOut();
-		const userImage = useSelector(selectUserPhoto);
-		const isLoggedIn = useSelector(selectUserIsLoggedIn);
-	
-    return (
-        <Nav>
-            <Link to='/'>
-							<Logo src={LogoDisney}/>
-						</Link>
+function Navbar () {
+  const signOut = useSignOut()
+  const userImage = useSelector(selectUserPhoto)
+  const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
-            {
-							!isLoggedIn ? <LoginButton />:
-                <>
-                    <NavMenu />
-                    <ContainerUserImg>
-                        <UserImg 
-													src={userImage}
-													alt='Image profile'
-										/>
-	                    <SignOut 
-												onClick={signOut}
-											>
-												Sign Out
-											</SignOut>
-                    </ContainerUserImg>
-                </>
+  return (
+    <Nav>
+      <Link to='/'>
+        <Logo src={LogoDisney} />
+      </Link>
+
+      {
+							!isLoggedIn
+							  ? <LoginButton />
+							  : <>
+  <NavMenu />
+  <ContainerUserImg>
+    <UserImg
+      src={userImage}
+      alt='Image profile'
+    />
+    <SignOut
+      onClick={signOut}
+    >
+      Sign Out
+    </SignOut>
+  </ContainerUserImg>
+           </>
             }
-        </Nav>
-    )
+    </Nav>
+  )
 }
 
-export default Navbar;
+export default Navbar
 
 const Nav = styled.nav`
     height: 70px;

@@ -1,43 +1,43 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
-import { useAuth0 } from '@auth0/auth0-react';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectUserIsLoggedIn } from '../features/user/userSlice';
+import { useAuth0 } from '@auth0/auth0-react'
+import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectUserIsLoggedIn } from '../features/user/userSlice'
 
-import logoOne from '../assets/images/cta-logo-one.svg';
-import logoTwo from '../assets/images/cta-logo-two.png';
-import BackgroundImage from '../assets/images/login-background.jpg';
+import logoOne from '../assets/images/cta-logo-one.svg'
+import logoTwo from '../assets/images/cta-logo-two.png'
+import BackgroundImage from '../assets/images/login-background.jpg'
 
-function Login() {
-		const { loginWithRedirect } = useAuth0();
-    const history = useHistory();
-	  const isLoggedIn = useSelector(selectUserIsLoggedIn);
+function Login () {
+  const { loginWithRedirect } = useAuth0()
+  const history = useHistory()
+	  const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
-    if(isLoggedIn){
-        history.push('/');
-			  return null;
-    }
+  if (isLoggedIn) {
+    history.push('/')
+			  return null
+  }
 
-    return (
-        <Container>
-            <CTA>
-                <CTALogoOne src={logoOne}/>
-								<SignUp onClick={loginWithRedirect}>
-									GET ALL THERE
-								</SignUp>
-                <Description>
-                    Get Premiere Access to Raya and the Last Dragon for and additional fee with a Disney+ suscription.
-                    As of 03/26/21, the price of Disney+ and the Disney Bundle will increase by $1.
-                </Description>
-                <CTALogoTwo src={logoTwo}/>
-            </CTA>
-        </Container>
-    )
+  return (
+    <Container>
+      <CTA>
+        <CTALogoOne src={logoOne} />
+        <SignUp onClick={loginWithRedirect}>
+          GET ALL THERE
+        </SignUp>
+        <Description>
+          Get Premiere Access to Raya and the Last Dragon for and additional fee with a Disney+ suscription.
+          As of 03/26/21, the price of Disney+ and the Disney Bundle will increase by $1.
+        </Description>
+        <CTALogoTwo src={logoTwo} />
+      </CTA>
+    </Container>
+  )
 }
 
-export default Login;
+export default Login
 
 const Container = styled.div`
     height: calc(100vh - 70px);

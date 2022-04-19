@@ -1,46 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { getMovieCategory } from '../services/movie';
-import Loading from './Loading';
+import { getMovieCategory } from '../services/movie'
+import Loading from './Loading'
 
 const Movies = ({ category, title }) => {
-    const [movies, setMovies] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [movies, setMovies] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-    useEffect(() => {
-      getMovieCategory({ category })
-				.then(res => setMovies(res.results))
-				.catch(err => setError(err))
-				.finally(() => setIsLoading(false));
-		}, [category]);
+  useEffect(() => {
+    getMovieCategory({ category })
+      .then(res => setMovies(res.results))
+      .catch(err => setError(err))
+      .finally(() => setIsLoading(false))
+  }, [category])
 
-    if(isLoading) return <Loading />;
-    if(error) return <h4 color="red">{error.message}</h4>;
+  if (isLoading) return <Loading />
+  if (error) return <h4 color='red'>{error.message}</h4>
 
-    return (
-        <Container>
-            <h3>{title || 'TYPE MOVIES'}</h3>
-            <Content>
-                {
+  return (
+    <Container>
+      <h3>{title || 'TYPE MOVIES'}</h3>
+      <Content>
+        {
                     movies.map(movie => {
-                    return (
+                      return (
                         <Wrap key={movie.id}>
-                            <Link to={`/detail/${movie.id}`}>
-                                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title || movie.id} />
-                            </Link>
+                          <Link to={`/detail/${movie.id}`}>
+                            <img
+                              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                              alt={movie.title || movie.id}
+                            />
+                          </Link>
                         </Wrap>
-                    )
-                })}
-            </Content>
-        </Container>
-    )
+                      )
+                    })
+}
+      </Content>
+    </Container>
+  )
 }
 
-export default Movies;
+export default Movies
 
 const Container = styled.div`
 		@media(max-width: 700px) {

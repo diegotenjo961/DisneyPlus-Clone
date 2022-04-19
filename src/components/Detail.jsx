@@ -1,121 +1,121 @@
-import React, { useState, useEffect} from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
-import Loading from './Loading';
-import Video from './Video';
+import Loading from './Loading'
+import Video from './Video'
 
-import { getMovieDetails, getMovieTrailer } from '../services/movie';
+import { getMovieDetails, getMovieTrailer } from '../services/movie'
 
 // Icons
-import play from '../assets/images/play-icon-black.png';
-import playWhite from '../assets/images/play-icon-white.png';
-import group from '../assets/images/group-icon.png';
+import play from '../assets/images/play-icon-black.png'
+import playWhite from '../assets/images/play-icon-white.png'
+import group from '../assets/images/group-icon.png'
 
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
-function Detail() {
-    const { id } = useParams();
-    const [movie, setMovie] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [booleanVideo, setBooleanVideo] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+function Detail () {
+  const { id } = useParams()
+  const [movie, setMovie] = useState([])
+  const [videos, setVideos] = useState([])
+  const [booleanVideo, setBooleanVideo] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-    useEffect(() => {
-			setIsLoading(true);
+  useEffect(() => {
+    setIsLoading(true)
 
-			Promise.all([
-					getMovieDetails({ id }),
-					getMovieTrailer({ id })
-				]).then(res => {
-					setMovie(res[0]);
-					setVideos(res[1]);
-				}).catch(error => {
-            new Error(error);
-            setError(error);
-        })
-				.finally(() => setIsLoading(false));
-    }, [id]);
+    Promise.all([
+      getMovieDetails({ id }),
+      getMovieTrailer({ id })
+    ]).then(res => {
+      setMovie(res[0])
+      setVideos(res[1])
+    }).catch(error => {
+      new Error(error)
+      setError(error)
+    })
+      .finally(() => setIsLoading(false))
+  }, [id])
 
+  const imageMovie = image => `https://image.tmdb.org/t/p/w500${image}`
 
-    const imageMovie = image => `https://image.tmdb.org/t/p/w500${image}`;
-    
-
-    const handleClick = async e => {
-        if(e.target.className === 'button-closed'){
-            return setBooleanVideo(false);
-        }
-        return setBooleanVideo(true);
+  const handleClick = async e => {
+    if (e.target.className === 'button-closed') {
+      return setBooleanVideo(false)
     }
+    return setBooleanVideo(true)
+  }
 
-    if(isLoading) return <Loading />;
+  if (isLoading) return <Loading />
 
-    if(error) return <h4>{error.message}</h4>;
-    return (
-        <Container>
-            <section>
-                <Image>
-                    <img src={imageMovie(movie.backdrop_path)}
-                    alt={movie.title} />
-                </Image>
+  if (error) return <h4>{error.message}</h4>
+  return (
+    <Container>
+      <section>
+        <Image>
+          <img
+            src={imageMovie(movie.backdrop_path)}
+            alt={movie.title}
+          />
+        </Image>
 
-                <Controls>
-                    <PlayButton onClick={handleClick}>
-                        <img src={play} alt="icon play"/>
-                        <span>PLAY</span>
-                    </PlayButton>
-                    <TrailerButton onClick={handleClick}>
-                        <img src={playWhite} alt="icon play white"/>
-                        <span>TRAILER</span>
-                    </TrailerButton>
-                    <AddButton>
-                        <span>+</span>
-                    </AddButton>
-                    <GroupWatchButton>
-                        <img src={group} alt='icon group'/>
-                    </GroupWatchButton>
-                </Controls>
-                {booleanVideo && (
-                    <>
-                    <ButtonClosed>
-                        <span className="button-closed" onClick={handleClick}>
-                            Close
-                        </span>
-                    </ButtonClosed>
-                        {videos.results.map(video => {
-                            return(
-                                <div key={video.key}>
-                                    <Video url={video.key} title={video.name} />
-                                </div>
-                            )
-                        })}
-                    </>
-                )}
-            </section>
-            <section>
-                <Title>
-                    <h3>{movie.title}</h3>
-                </Title>
-                <SubTitle>
-                    <span>{movie.release_date}</span>
-                    <div>
-                        {movie.genres && movie.genres.map(genre => {
-                            return(
-                                <span key={genre.id}>{genre.name}</span>
-                            )
-                        })}
-                    </div>
-                </SubTitle>
+        <Controls>
+          <PlayButton onClick={handleClick}>
+            <img src={play} alt='icon play' />
+            <span>PLAY</span>
+          </PlayButton>
+          <TrailerButton onClick={handleClick}>
+            <img src={playWhite} alt='icon play white' />
+            <span>TRAILER</span>
+          </TrailerButton>
+          <AddButton>
+            <span>+</span>
+          </AddButton>
+          <GroupWatchButton>
+            <img src={group} alt='icon group' />
+          </GroupWatchButton>
+        </Controls>
+        {booleanVideo && (
+          <>
+            <ButtonClosed>
+              <span className='button-closed' onClick={handleClick}>
+                Close
+              </span>
+            </ButtonClosed>
+            {videos.results.map(video => {
+              return (
+                <div key={video.key}>
+                  <Video url={video.key} title={video.name} />
+                </div>
+              )
+            })}
+          </>
+        )}
+      </section>
+      <section>
+        <Title>
+          <h3>{movie.title}</h3>
+        </Title>
+        <SubTitle>
+          <span>{movie.release_date}</span>
+          <div>
+            {movie.genres && movie.genres.map(genre => {
+              return (
+                <span key={genre.id}>{genre.name}</span>
+              )
+            })}
+          </div>
+        </SubTitle>
 
-                <Description>
-                    {movie.overview}
-                </Description>
-            </section>
-        </Container>
-    )
+        <Description>
+          {movie.overview}
+        </Description>
+      </section>
+    </Container>
+  )
 }
 
-export default Detail;
+export default Detail
 
 const Container = styled.div`
     margin: 0 70px;

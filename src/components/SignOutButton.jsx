@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import useSignOut from '../hooks/useSignOut';
-import { useSelector } from 'react-redux';
-import { selectUserPhoto } from '../features/user/userSlice';
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
+import useSignOut from '../hooks/useSignOut'
+import { useSelector } from 'react-redux'
+import { selectUserPhoto } from '../features/user/userSlice'
 
-function SignOutButton() {
-	const [showButton, setShowButton] = useState(false);
-	const signOut = useSignOut();
-	const userImage = useSelector(selectUserPhoto);
+function SignOutButton () {
+  const [showButton, setShowButton] = useState(false)
+  const signOut = useSignOut()
+  const userImage = useSelector(selectUserPhoto)
 
-	return (
-	  <>
-			<figure
-				onClick={() => setShowButton(!showButton)}
-			>
-				<Image src={userImage} alt="userPhoto"/>
-			</figure>
-			<Button 
-				onClick={signOut}
-				show={showButton}
-			>
-				Sign Out
-			</Button>
-		</>
-	);
+  return (
+    <>
+      <figure
+        onClick={() => setShowButton(!showButton)}
+      >
+        <Image src={userImage} alt='userPhoto' />
+      </figure>
+      <Button
+        onClick={signOut}
+        show={showButton}
+      >
+        Sign Out
+      </Button>
+    </>
+  )
 }
 
-export default SignOutButton;
+export default SignOutButton
 
 const Image = styled.img`
 	margin-top: 6px; 
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
-`;
+`
 
 const Button = styled.button`
 	position: absolute;

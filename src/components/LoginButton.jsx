@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react'
+import styled from 'styled-components'
+import { useAuth0 } from '@auth0/auth0-react'
 
-function LoginButton() {
-	const { loginWithRedirect } = useAuth0();
-		return (
-      <LoginContainer>
-        <Login onClick={loginWithRedirect}>
-					Login
-				</Login>
-      </LoginContainer>
-	);
+function LoginButton () {
+  const { loginWithRedirect } = useAuth0()
+  return (
+    <LoginContainer>
+      <Login onClick={loginWithRedirect}>
+        Login
+      </Login>
+    </LoginContainer>
+  )
 }
 
-export default LoginButton;
+export default LoginButton
 
 const Login = styled.button`
     cursor: pointer;

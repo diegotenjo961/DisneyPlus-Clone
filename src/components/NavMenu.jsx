@@ -1,64 +1,65 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-import iconHome from '../assets/images/home-icon.svg';
-import iconSearch from '../assets/images/search-icon.svg';
-import iconWatchlist from '../assets/images/watchlist-icon.svg';
-import iconOriginal from '../assets/images/original-icon.svg';
-import iconMovies from '../assets/images/movie-icon.svg';
-import iconSeries from '../assets/images/series-icon.svg';
+import iconHome from '../assets/images/home-icon.svg'
+import iconSearch from '../assets/images/search-icon.svg'
+import iconWatchlist from '../assets/images/watchlist-icon.svg'
+import iconOriginal from '../assets/images/original-icon.svg'
+import iconMovies from '../assets/images/movie-icon.svg'
+import iconSeries from '../assets/images/series-icon.svg'
 
-function NavMenu() {
-	return (
-		<NavMenuContainer>
-      <Link to='/'>
-				<img 
-					src={iconHome} 
-					alt="icon home"
-				/>
-        <span>HOME</span>
-			</Link>
-      <Link to="/">
-				<img 
-					src={iconSearch} 
-					alt="icon search"
-				/>
-        <span>SEARCH</span>
-      </Link>
-      <Link to="/">
-				<img 
-					src={iconWatchlist} 
-					alt="icon watchlist"
-				/>
-        <span>WATCHLIST</span>
-      </Link>
-      <Link to="/">
-				<img 
-					src={iconOriginal} 
-					alt="icon original"
-				/>
-        <span>ORIGINALS</span>
-      </Link>
-      <Link to="/">
-				<img 
-					src={iconMovies} 
-					alt="icon movies"
-				/>
-        <span>MOVIES</span>
-      </Link> 
-     <Link to="/">
-				<img 
-					src={iconSeries} 
-					alt="icon series"
-				/>
-				<span>SERIES</span>
-      </Link>
-		</NavMenuContainer>
-	);
+const navMenuContent = [
+  {
+    to: '/',
+    srcImage: iconHome,
+    title: 'home'
+  },
+  {
+    to: '/',
+    srcImage: iconSearch,
+    title: 'search'
+  },
+  {
+    to: '/',
+    srcImage: iconWatchlist,
+    title: 'watchlist'
+  },
+  {
+    to: '/',
+    srcImage: iconOriginal,
+    title: 'originals'
+  },
+  {
+    to: '/',
+    srcImage: iconMovies,
+    title: 'movies'
+  },
+  {
+    to: '/',
+    srcImage: iconSeries,
+    title: 'series'
+  }
+
+]
+
+function NavMenu () {
+  return (
+    <NavMenuContainer>
+      {navMenuContent.map((item, n) => (
+        <Link to={item.to} key={item.title.concat(n)}>
+          <img
+            src={item.srcImage}
+            alt={`icon ${item.title}`}
+          />
+          <span>{item.title.toUpperCase()}</span>
+        </Link>
+      ))}
+    </NavMenuContainer>
+  )
 }
 
-export default NavMenu;
+export default NavMenu
 
 const NavMenuContainer = styled.section`
     display: flex;
@@ -104,4 +105,3 @@ const NavMenuContainer = styled.section`
         }
     }
 `
-

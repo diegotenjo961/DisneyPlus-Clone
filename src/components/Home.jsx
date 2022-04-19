@@ -1,37 +1,37 @@
 import React from 'react'
-import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import { selectUserIsLoggedIn } from '../features/user/userSlice.js';
+import { selectUserIsLoggedIn } from '../features/user/userSlice.js'
 
-import ImgSlider from './ImgSlider';
-import Viewers from './Viewers';
-import Movies from './Movies';
+import ImgSlider from './ImgSlider'
+import Viewers from './Viewers'
+import Movies from './Movies'
 
-import backgroundHome from '../assets/images/home-background.png';
+import backgroundHome from '../assets/images/home-background.png'
 
-function Home() {
-		const history = useHistory();
-		const isLogged = useSelector(selectUserIsLoggedIn);
+function Home () {
+  const history = useHistory()
+  const isLogged = useSelector(selectUserIsLoggedIn)
 
-	  if(!isLogged) {
-			history.push('/login');
-			return null;
-		}
+	  if (!isLogged) {
+    history.push('/login')
+    return null
+  }
 
-    return (
-        <Container>
-            <ImgSlider />
-            <Viewers />
-            <Movies category='popular' title='POPULAR MOVIES'/>
-            <Movies category='top_rated' title='TOP RELATED'/>
-            <Movies category='upcoming' title='UPCOMING'/>
-        </Container>
-    )
+  return (
+    <Container>
+      <ImgSlider />
+      <Viewers />
+      <Movies category='popular' title='POPULAR MOVIES' />
+      <Movies category='top_rated' title='TOP RELATED' />
+      <Movies category='upcoming' title='UPCOMING' />
+    </Container>
+  )
 }
 
-export default Home;
+export default Home
 
 const Container = styled.main`
     min-height: calc(100vh - 70px);
