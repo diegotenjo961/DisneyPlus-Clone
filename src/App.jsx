@@ -41,13 +41,9 @@ function App () {
           <Route path='/'>
             <Home />
           </Route>
-          // {isAuthenticated && (
-           // <>
-              <Route path='/detail/:id'>
-                <Detail />
-              </Route>
-           // </>
-		//      )}
+          <Route path='/detail/:id'>
+            <Detail />
+          </Route>
         </Switch>
         </Layout>
       </Router>
