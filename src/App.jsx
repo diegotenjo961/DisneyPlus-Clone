@@ -41,13 +41,13 @@ function App () {
           <Route path='/'>
             <Home />
           </Route>
-          {isAuthenticated && (
-            <>
+          // {isAuthenticated && (
+           // <>
               <Route path='/detail/:id'>
                 <Detail />
               </Route>
-            </>
-		      )}
+           // </>
+		//      )}
         </Switch>
         </Layout>
       </Router>
