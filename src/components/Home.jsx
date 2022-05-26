@@ -15,7 +15,7 @@ function Home () {
   const history = useHistory()
   const isLogged = useSelector(selectUserIsLoggedIn)
 
-	  if (!isLogged) {
+  if (!isLogged) {
     history.push('/login')
     return null
   }

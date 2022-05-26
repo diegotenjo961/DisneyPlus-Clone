@@ -22,6 +22,8 @@ function App () {
   if (isLoading) {
     return <Loading />
   }
+  console.log(user)
+  console.log(isAuthenticated)
   if (isAuthenticated) {
     dispatch(setUserLogin({
       name: user.name,
@@ -35,14 +37,14 @@ function App () {
       <Router>
         <Layout>
         <Switch>
+          <Route path='/detail/:id'>
+            <Detail />
+          </Route>
           <Route path='/login'>
             <Login />
           </Route>
           <Route path='/'>
             <Home />
-          </Route>
-          <Route path='/detail/:id'>
-            <Detail />
           </Route>
         </Switch>
         </Layout>

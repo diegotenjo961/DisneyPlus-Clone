@@ -13,11 +13,11 @@ import BackgroundImage from '../assets/images/login-background.jpg'
 function Login () {
   const { loginWithRedirect } = useAuth0()
   const history = useHistory()
-	  const isLoggedIn = useSelector(selectUserIsLoggedIn)
+	const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
   if (isLoggedIn) {
     history.push('/')
-			  return null
+		return null
   }
 
   return (
