@@ -16,19 +16,19 @@ function Footer(){
         <p> Disney clone by: diegotenjo961</p>
       </div>
       <Social>
-        <a href="https://twitter.com/diegotenjo961" target="_blanck">
+        <a href="https://twitter.com/elcokiin" target="_blanck">
           <img
             src={twitterIcon}
             alt="twitter icon"
           />
         </a>
-        <a href="https://github.com/diegotenjo961/DisneyPlus-Clone" target="_blanck">
+        <a href="https://github.com/elcokiin/DisneyPlus-Clone" target="_blanck">
           <img
             src={githubIcon}
             alt="github icon"
           />
         </a>
-        <a href="https://instagram.com/diegofernandoaguirret" target="_blanck">
+        <a href="https://instagram.com/elcokiin" target="_blanck">
           <img
             src={instagramIcon}
             alt="instagram icon"
