@@ -13,7 +13,7 @@ function Footer(){
           src={copyrightIcon}
           alt="copyright"
         />
-        <p> Disney clone by: diegotenjo961</p>
+        <p> Disney clone by: elcokiin </p>
       </div>
       <Social>
         <a href="https://twitter.com/elcokiin" target="_blanck">
@@ -28,7 +28,7 @@ function Footer(){
             alt="github icon"
           />
         </a>
-        <a href="https://instagram.com/elcokiin" target="_blanck">
+        <a href="https://instagram.com/diego._tenjo" target="_blanck">
           <img
             src={instagramIcon}
             alt="instagram icon"

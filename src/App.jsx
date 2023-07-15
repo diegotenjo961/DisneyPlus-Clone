@@ -22,8 +22,7 @@ function App () {
   if (isLoading) {
     return <Loading />
   }
-  console.log(user)
-  console.log(isAuthenticated)
+
   if (isAuthenticated) {
     dispatch(setUserLogin({
       name: user.name,
